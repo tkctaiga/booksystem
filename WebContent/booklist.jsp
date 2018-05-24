@@ -17,11 +17,11 @@
 <a href="/booksystem/mainmenuservlet?action=userout">ログアウト</a>
 <br><br>検索件数は${bookscount}件HITしました！
 	<table border="1">
-		<tr><td>ISBN</td><td>分類コード</td><td>本名</td><td>出版社</td><td>著作名</td></tr>
+		<tr><td>ISBN</td><td>ジャンル</td><td>本名</td><td>出版社</td><td>著作名</td></tr>
 		<c:forEach items="${books}" var="book">
 		<form action="/booksystem/bookdispservlet?action=searchborrow" method="post">
 		<input type="hidden" name="book_name" value="${book.name}">
-		<tr><td>${book.isbn}</td><td>${book.categorycode}</td><td><strong>${book.name}</strong></td><td>${book.publishercode}</td><td>${book.author}</td><td><input type="submit" value="借りる"></td></tr>
+		<tr><td>${book.isbn}</td><td>${book.categorycode}</td><td><strong>${book.name}</strong></td><td>${book.publishercode}</td><td>${book.author}</td><td><input type="submit" value="詳細"></td></tr>
 		</form>
 		</c:forEach>
 	</table>

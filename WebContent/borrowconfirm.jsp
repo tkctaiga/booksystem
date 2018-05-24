@@ -16,9 +16,9 @@
 <a href="/booksystem/mainmenuservlet?action=userout">ログアウト</a>
 <br><h3>確認画面</h3><br>
 <table border="1">
-	<tr><td>ISBN</td><td>分類コード</td><td>本名</td><td>出版社</td><td>著作名</td></tr>
+	<tr><td>ISBN</td><td>ジャンル</td><td>本名</td><td>出版社</td><td>著作名</td><td>在庫</td></tr>
 	<c:forEach items="${books}" var="book">
-	<tr><td>${book.isbn}</td><td>${book.categorycode}</td><td><strong>${book.name}</strong></td><td>${book.publishercode}</td><td>${book.author}</td></tr>
+	<tr><td>${book.isbn}</td><td>${book.categorycode}</td><td><strong>${book.name}</strong></td><td>${book.publishercode}</td><td>${book.author}</td><td>${book.author}</td></tr>
 	</c:forEach>
 </table>
 <br>

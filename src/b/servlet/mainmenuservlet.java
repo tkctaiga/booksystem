@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import b.bean.UserTopBean;
 import b.bean.bookBean;
 import b.dao.DAOException;
 import b.dao.bookDao;
@@ -35,6 +36,12 @@ public class mainmenuservlet extends HttpServlet {
 			//トップページ
 			else if (action.equals("usermenu"))
 			{
+				bookDao dao = new bookDao();
+				List<UserTopBean>list = dao.findtop();
+				request.setAttribute("username",list);
+				request.setAttribute("userbookscount",list.size());
+				request.setAttribute("userbooks",list);
+
 				gotoPage(request,response,"/usermenu.jsp");
 			}
 			//検索

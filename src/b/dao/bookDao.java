@@ -1,7 +1,7 @@
 package b.dao;
 
-
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import b.bean.UserTopBean;
 import b.bean.bookBean;
 
 public class bookDao
@@ -141,7 +142,7 @@ public class bookDao
 		ResultSet rs = null;
 		try
 		{
-			String sql = "SELECT b.bookinfo_isbn,c.category_name,b.bookinfo_name,b.bookinfo_author,p.publisher_name FROM bookinfo b, publisher p,category c WHERE b.publisher_code = p.publisher_code AND b.category_code = c.category_code AND b.bookinfo_name = ?";
+			String sql = "SELECT b.bookinfo_isbn,c.category_name,b.bookinfo_name,b.bookinfo_author,b.publisher_name FROM bookinfo b,category c WHERE b.category_code = c.category_code AND b.bookinfo_name = ?";
 
 			st = con.prepareStatement(sql);
 			st.setString(1,uname);
@@ -175,6 +176,46 @@ public class bookDao
 			}
 		}
 	}
+
+	public List<UserTopBean>findtop() throws DAOException
+	{
+		if(con == null)
+			getConnection();
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try
+		{
+			String sql = "SELECT u.user_id,u.user_name,r.bookstate_id,bi.bookinfo_name,r.rental_roal,r.rental_dead FROM users u,rental r,bookstate bs,bookinfo bi WHERE u.user_id = r.user_id AND bs.bookinfo_isbn = bi.bookinfo_isbn AND r.bookstate_id = bs.bookstate_id AND u.user_name = '水沼　次郎'";
+
+			st = con.prepareStatement(sql);
+			rs = st.executeQuery();
+			List<UserTopBean>list = new ArrayList<UserTopBean>();
+			while(rs.next())
+			{
+				String m_name = rs.getString("bookinfo_name");
+				Date m_date = rs.getDate("rental_roal");
+				Date m_dater = rs.getDate("rental_dead");
+				UserTopBean bean = new UserTopBean(m_name,m_date,m_dater);
+				list.add(bean);
+			}
+		return list;
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました");
+		}finally{
+			try
+			{
+				if(rs != null)rs.close();
+				if(st != null)st.close();
+				close();
+			}catch(Exception e)
+			{
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
+	}
+
 	private void getConnection() throws DAOException
 	{
 		try
