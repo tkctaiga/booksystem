@@ -143,7 +143,7 @@ public class bookDao
 		ResultSet rs = null;
 		try
 		{
-			String sql = "SELECT bi.bookinfo_name,bs.bookstate_id FROM bookinfo bi,bookstate bs WHERE bi.bookinfo_isbn = bs.bookinfo_isbn AND bi.bookinfo_name = ? AND NOT EXISTS (SELECT bs.bookstate_id FROM Rental WHERE bs.bookstate_id = bookstate_id AND rental_return IS NULL)";
+			String sql = "SELECT bi.bookinfo_name,bs.bookstate_id FROM bookinfo bi,bookstate bs WHERE bi.bookinfo_isbn = bs.bookinfo_isbn AND bi.bookinfo_name = ? AND NOT EXISTS (SELECT bs.bookstate_id FROM Rental WHERE bs.bookstate_id = bookstate_id AND rental_return IS NULL OR bs.bookstate_dis IS NOT NULL)";
 
 			st = con.prepareStatement(sql);
 			st.setString(1,uname);
