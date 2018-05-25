@@ -7,6 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<font size="3">図書システム<br></font><hr>
+<br><h3>確定画面</h3>
+ご利用ありがとうございました。本の返す処理が正常に行われました。<br>
+<a href="/booksystem/mainmenuservlet?action=usermenu">メインメニューへ</a>
 </body>
 </html>

@@ -18,9 +18,9 @@
 <br><br>ようこそ水沼さん<br><h3>現在の貸し出し状況</h3>
 <br>現在の貸し出し件数は<strong>${userbookscount}</strong>件です！。
 <table border="1">
-<tr><td>本名</td><td>貸し出し日時</td><td>返却日</td></tr>
+<tr><td>本名</td><td>貸し出し日時</td><td>返却日</td><td>レンタルID</td></tr>
 <c:forEach items="${userbooks}" var="userbook">
-<tr><td>${userbook.name}</td><td>${userbook.bookday}</td><td>${userbook.bookdayr}</td></tr>
+<tr><td>${userbook.name}</td><td>${userbook.bookday}</td><td>${userbook.bookdayr}</td><td>${userbook.rentalnumber}</td></tr>
 </c:forEach>
 </table>
 </html>

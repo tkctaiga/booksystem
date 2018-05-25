@@ -1,6 +1,5 @@
 package b.servlet;
 
-
 import java.io.IOException;
 import java.util.List;
 
@@ -16,12 +15,12 @@ import b.bean.UserTopBean;
 import b.dao.DAOException;
 import b.dao.bookDao;
 
-
 /**
- * Servlet implementation class ShoeItemServlet
+ * Servlet implementation class ShowReturnBookServlet
  */
-@WebServlet("/mainmenuservlet")
-public class mainmenuservlet extends HttpServlet {
+@WebServlet("/ShowReturnBookServlet")
+public class ShowReturnBookServlet extends HttpServlet
+{
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		try
@@ -29,62 +28,35 @@ public class mainmenuservlet extends HttpServlet {
 			request.setCharacterEncoding("UTF-8");
 			HttpSession session = request.getSession(true);
 			String action = request.getParameter("action");
-
 			if(action == null || action.length() == 0 || action.equals("top"))
 			{
-				gotoPage(request,response,"/.jsp");
+				gotoPage(request,response,"/error.jsp");
 			}
-			//トップページ
-			else if (action.equals("usermenu"))
+			//返却確認
+			else if (action.equals("returncon"))
 			{
+				int rentalid = 0;
+				int uid = 2;
+				rentalid = Integer.parseInt(request.getParameter("rental_id"));
 				bookDao dao = new bookDao();
-				List<UserTopBean>list = dao.findtop();
-				request.setAttribute("username",list);
-				session.setAttribute("userbookscount",list.size());
-				session.setAttribute("userbooks",list);
-
-				gotoPage(request,response,"/usermenu.jsp");
+				List<UserTopBean>list = dao.returnconfim(uid,rentalid);
+				session.setAttribute("rental_id",rentalid);
+				request.setAttribute("renusers",list);
+				gotoPage(request,response,"/returnconfirm.jsp");
 			}
-			//検索
-			else if(action.equals("usersearch"))
+			//返却確定
+			else if(action.equals("returnend"))
 			{
-				//本の値
-				int booknum = 0;
-				booknum = (int)session.getAttribute("userbookscount");
-				if(booknum >= 5)
-				{
-					gotoPage(request,response,"/bookover.jsp");
-				}
-				else
-				{
-					gotoPage(request,response,"/searchbook.jsp");
-				}
-
-			}
-			//返却
-			else if(action.equals("userreturn"))
-			{
+				int rentalid = 0;
+				rentalid = (int)session.getAttribute("rental_id");
 				bookDao dao = new bookDao();
-				List<UserTopBean>list = dao.findtop();
-				request.setAttribute("username",list);
-				session.setAttribute("userbookscount",list.size());
-				session.setAttribute("userbooks",list);
-				gotoPage(request,response,"/return.jsp");
-			}
-			//会員情報
-			else if(action.equals("userinformation"))
-			{
-				gotoPage(request,response,"/changeuserinfo.jsp");
+				dao.returnbookupdate(rentalid);
+				gotoPage(request,response,"/returnorder.jsp");
 			}
 			//ログアウト
 			else if(action.equals("userout"))
 			{
-				session = request.getSession(false);
-		    	if(session != null){
-
-		    		session.invalidate();
-		    		gotoPage(request, response,"/librarylogout.jsp");
-		    	}
+				gotoPage(request,response,"/userconfirm.jsp");
 			}else{
 				gotoPage(request,response,"/error.jsp");
 			}
@@ -94,7 +66,6 @@ public class mainmenuservlet extends HttpServlet {
 			request.setAttribute("message","内部エラーが発生しました");
 			gotoPage(request,response,"/error.jsp");
 		}
-
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
@@ -106,17 +77,4 @@ public class mainmenuservlet extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher(page);
 		rd.forward(request,response);
 	}
-
-	public void init() throws ServletException
-	{
-		//try
-		//{
-		//}catch(DAOException e)
-		//{
-		//	e.printStackTrace();
-		//	throw new ServletException();
-		//}
-	}
-
 }
-

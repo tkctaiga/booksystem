@@ -14,12 +14,16 @@
 <a href="/booksystem/mainmenuservlet?action=userreturn"><font color="#ff6666">■返却</font></a>
 <a href="/booksystem/mainmenuservlet?action=userinformation">会員情報</a>
 <a href="/booksystem/mainmenuservlet?action=userout">ログアウト</a>
-<br><br>返却ページ
-		<table border="1">
-		<tr><td>ISBN</td><td>分類コード</td><td>出版社</td><td>本名</td><td>著作名</td></tr>
-		<c:forEach items="${books}" var="book">
-		<tr><td>${book.isbn}</td><td>${book.categorycode}</td><td>${book.publishercode}</td><td>${book.name}</td><td>${book.author}</td></tr>
-		</c:forEach>
-	</table>
+<br><br>返却メニュー<br><h3>現在の貸し出し状況</h3>
+<br>現在の貸し出し件数は<strong>${userbookscount}</strong>件です！。
+<table border="1">
+<tr><td>本名</td><td>貸し出し日時</td><td>返却日</td><td>レンタルID</td><td>返却</td></tr>
+<c:forEach items="${userbooks}" var="userbook">
+<form action="/booksystem/ShowReturnBookServlet?action=returncon" method="post">
+<input type="hidden" name="rental_id" value="${userbook.rentalnumber}">
+<tr><td>${userbook.name}</td><td>${userbook.bookday}</td><td>${userbook.bookdayr}</td><td>${userbook.rentalnumber}</td><td><input type="submit" value="返却"></td></tr>
+</form>
+</c:forEach>
+</table>
 </body>
 </html>

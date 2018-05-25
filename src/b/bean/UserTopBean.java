@@ -7,10 +7,19 @@ public class UserTopBean implements Serializable
     private String name;
     private Date bookday;
     private Date bookdayr;
+    private int rentalnumber;
+
 
     public UserTopBean()
     {
 
+    }
+    public UserTopBean(String name,Date day,Date dayr,int rentalnumber)
+    {
+        this.name = name;
+        this.bookday = day;
+        this.bookdayr = dayr;
+        this.rentalnumber = rentalnumber;
     }
     public UserTopBean(String name,Date day,Date dayr)
     {
@@ -41,5 +50,13 @@ public class UserTopBean implements Serializable
     public void setBookdayr(Date bookdayr)
     {
         this.bookdayr = bookdayr;
+    }
+    public int getRentalnumber()
+    {
+	     return rentalnumber;
+	}
+    public void setRentalnumber(int rentalnumber)
+    {
+        this.rentalnumber = rentalnumber;
     }
 }
