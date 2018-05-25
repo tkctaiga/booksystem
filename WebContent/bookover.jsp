@@ -10,7 +10,6 @@
 <br><h3>!注意!</h3>
 <h3><strong>お客様は現在5冊本を借りている状態なので借りられません</strong>
 <br>本を返却してからご利用ください。</h3><br>
-10秒後にトップページへ戻ります<br>
-<META http-equiv="Refresh" content="5;URL=usermenu.jsp">
+<a href="/booksystem/mainmenuservlet?action=usermenu">トップへ</a>
 </body>
 </html>
