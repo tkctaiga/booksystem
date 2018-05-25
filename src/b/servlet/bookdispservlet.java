@@ -51,12 +51,18 @@ public class bookdispservlet extends HttpServlet {
 				String book_name = request.getParameter("book_name");
 				bookDao dao = new bookDao();
 				List<bookBean>list = dao.findconfim(book_name);
+				System.out.println(dao.returnRentalid());
+				request.setAttribute("bookscount",list.size());
 				request.setAttribute("books",list);
 				gotoPage(request,response,"/borrowconfirm.jsp");
 			}
 			//借りる確定
 			else if(action.equals("searchborroworder"))
 			{
+				int stateid = Integer.parseInt(request.getParameter("book_stateid"));
+				bookDao dao = new bookDao();
+				System.out.println(stateid);
+				dao.AddRental(dao.returnRentalid(),stateid);
 				gotoPage(request,response,"/borroworder.jsp");
 			}
 			//一覧

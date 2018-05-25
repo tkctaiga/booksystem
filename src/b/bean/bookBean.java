@@ -13,7 +13,9 @@ public class bookBean implements Serializable
 	private String book_name;
 	//本の著者
 	private String book_author;
-
+	//本の状態
+	private int book_stateid;
+	//検索Bean
 	public bookBean(String isbn,String categorycode,String publishercode,String name,String author)
 	{
 		//ISBNコード
@@ -26,6 +28,14 @@ public class bookBean implements Serializable
 		this.book_name = name;
 		//本の著者
 		this.book_author = author;
+	}
+	//借りるBean
+	public bookBean(String name,int bookstateid)
+	{
+		//本の名前
+		this.book_name = name;
+	    //本の状態
+		this.book_stateid = bookstateid;
 	}
 
 	public bookBean()
@@ -70,6 +80,14 @@ public class bookBean implements Serializable
 	public void setAuthor(String author)
 	{
 		this.book_author = author;
+	}
+	public int getBookstateid()
+	{
+		return book_stateid;
+	}
+	public void setBookstateid(int stateid)
+	{
+		this.book_stateid = stateid;
 	}
 
 }

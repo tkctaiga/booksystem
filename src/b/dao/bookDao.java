@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import b.bean.UserTopBean;
@@ -142,21 +143,18 @@ public class bookDao
 		ResultSet rs = null;
 		try
 		{
-			String sql = "SELECT b.bookinfo_isbn,c.category_name,b.bookinfo_name,b.bookinfo_author,b.publisher_name FROM bookinfo b,category c WHERE b.category_code = c.category_code AND b.bookinfo_name = ?";
+			String sql = "SELECT bi.bookinfo_name,bs.bookstate_id FROM bookinfo bi,bookstate bs WHERE bi.bookinfo_isbn = bs.bookinfo_isbn AND bi.bookinfo_name = ? AND NOT EXISTS (SELECT bs.bookstate_id FROM Rental WHERE bs.bookstate_id = bookstate_id);";
 
 			st = con.prepareStatement(sql);
 			st.setString(1,uname);
-			System.out.println("とってきた値" + uname);
+
 			rs = st.executeQuery();
 			List<bookBean>list = new ArrayList<bookBean>();
 			while(rs.next())
 			{
-				String isbn = rs.getString("bookinfo_isbn");
-				String ccode = rs.getString("category_name");
-				String pcode = rs.getString("publisher_name");
 				String name = rs.getString("bookinfo_name");
-				String author = rs.getString("bookinfo_author");
-				bookBean bean = new bookBean(isbn,ccode,pcode,name,author);
+				int id = rs.getInt("bookstate_id");
+				bookBean bean = new bookBean(name,id);
 				list.add(bean);
 			}
 		return list;
@@ -214,6 +212,115 @@ public class bookDao
 				throw new DAOException("リソースの開放に失敗しました");
 			}
 		}
+	}
+
+	public int returnRentalid()
+			throws DAOException{
+		if(con == null)
+			getConnection();
+
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try
+		{
+			int indexnum = 0;
+			String sql = "SELECT nextval('rental_rental_id_seq')";
+			st = con.prepareStatement(sql);
+			rs = st.executeQuery();
+			if(rs.next())
+			{
+				indexnum  = rs.getInt(1);
+			}
+			return indexnum;
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました");
+		}finally{
+			try
+			{
+				if(rs != null)rs.close();
+				if(st != null)st.close();
+				close();
+			}catch(Exception e)
+			{
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
+
+	}
+
+	public int serchBookid(int number)
+			throws DAOException{
+		if(con == null)
+			getConnection();
+
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try
+		{
+			int indexnum = 0;
+			String sql = "SELECT bi.bookinfo_name,bs.bookstate_id FROM Bookinfo bi,BookState bs,Rental r WHERE bi.bookinfo_isbn = bs.bookinfo_isbn AND bs.bookstate_id = r.bookstate_id AND bs.bookstate_id = ?";
+			st = con.prepareStatement(sql);
+			st.setInt(1,number);
+			rs = st.executeQuery();
+			if(rs.next())
+			{
+				indexnum  = rs.getInt(2);
+			}
+			return indexnum;
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました");
+		}finally{
+			try
+			{
+				if(rs != null)rs.close();
+				if(st != null)st.close();
+				close();
+			}catch(Exception e)
+			{
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
+
+	}
+
+	public void AddRental(int setnumber,int booknum)throws DAOException{
+		if(con == null)
+			getConnection();
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try
+		{
+			String sql = "INSERT INTO Rental VALUES(?,?,2,?,NULL,?)";
+			st = con.prepareStatement(sql);
+			st.setInt(1,setnumber);
+			st.setInt(2,booknum);
+			Date today = new Date(System.currentTimeMillis());
+			st.setDate(3,today);
+			Calendar cal = Calendar.getInstance();
+			cal.add(Calendar.DATE,15);
+			today = new Date(cal.getTimeInMillis());
+			st.setDate(4,today);
+			st.executeUpdate();
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました");
+		}finally{
+			try
+			{
+				if(rs != null)rs.close();
+				if(st != null)st.close();
+				close();
+			}catch(Exception e)
+			{
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
+
 	}
 
 	private void getConnection() throws DAOException

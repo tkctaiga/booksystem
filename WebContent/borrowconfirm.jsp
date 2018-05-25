@@ -16,15 +16,14 @@
 <a href="/booksystem/mainmenuservlet?action=userout">ログアウト</a>
 <br><h3>確認画面</h3><br>
 <table border="1">
-	<tr><td>ISBN</td><td>ジャンル</td><td>本名</td><td>出版社</td><td>著作名</td><td>在庫</td></tr>
+<form action="/booksystem/bookdispservlet?action=searchborroworder" method="post">
+	<tr><td>本名</td><td>本情報</td>本が${bookscount}冊見つかりました</tr>
 	<c:forEach items="${books}" var="book">
-	<tr><td>${book.isbn}</td><td>${book.categorycode}</td><td><strong>${book.name}</strong></td><td>${book.publishercode}</td><td>${book.author}</td><td>${book.author}</td></tr>
+	<input type="hidden" name="book_stateid" value="${book.bookstateid}">
+	<tr><td><strong>${book.name}</strong></td><td>${book.bookstateid}</td><td><input type="submit" value="確定"></td></tr>
 	</c:forEach>
+	</form>
 </table>
 <br>
-こちらでよろしいでしょうか？
-<form action="/booksystem/bookdispservlet?action=searchborroworder" method="post">
-<br><input type="submit" value="確定">
-</form>
 </body>
 </html>

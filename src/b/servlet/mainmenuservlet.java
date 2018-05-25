@@ -28,7 +28,9 @@ public class mainmenuservlet extends HttpServlet {
 		try
 		{
 			request.setCharacterEncoding("UTF-8");
+			HttpSession session = request.getSession(true);
 			String action = request.getParameter("action");
+
 			if(action == null || action.length() == 0 || action.equals("top"))
 			{
 				gotoPage(request,response,"/.jsp");
@@ -39,15 +41,26 @@ public class mainmenuservlet extends HttpServlet {
 				bookDao dao = new bookDao();
 				List<UserTopBean>list = dao.findtop();
 				request.setAttribute("username",list);
-				request.setAttribute("userbookscount",list.size());
-				request.setAttribute("userbooks",list);
+				session.setAttribute("userbookscount",list.size());
+				session.setAttribute("userbooks",list);
 
 				gotoPage(request,response,"/usermenu.jsp");
 			}
 			//検索
 			else if(action.equals("usersearch"))
 			{
-				gotoPage(request,response,"/searchbook.jsp");
+				//本の値
+				int booknum = 0;
+				booknum = (int)session.getAttribute("userbookscount");
+				if(booknum >= 5)
+				{
+					gotoPage(request,response,"/bookover.jsp");
+				}
+				else
+				{
+					gotoPage(request,response,"/searchbook.jsp");
+				}
+
 			}
 			//返却
 			else if(action.equals("userreturn"))
@@ -66,7 +79,7 @@ public class mainmenuservlet extends HttpServlet {
 			//ログアウト
 			else if(action.equals("userout"))
 			{
-				HttpSession session = request.getSession(false);
+				session = request.getSession(false);
 		    	if(session != null){
 
 		    		session.invalidate();
