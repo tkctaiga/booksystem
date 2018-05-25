@@ -8,5 +8,16 @@
 </head>
 <body>
 
+<h1>○○図書システム</h1>
+
+<a href="/booksystem/ManagerMenuServlet?action=mmain">メイン</a>
+<a href="/booksystem/ManagerMenuServlet?action=mregister">本の登録</a>
+<a href="/booksystem/ManagerMenuServlet?action=mdelete">本の削除</a>
+<a href="/booksystem/ManagerMenuServlet?action=mchuser">会員変更</a>
+<a href="/booksystem/ManagerMenuServlet?action=mbruser">貸返の照会</a>
+<a href="/booksystem/ManagerMenuServlet?action=mlogout">ログアウト</a>
+
+<hr>
+
 </body>
 </html>
