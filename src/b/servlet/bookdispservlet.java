@@ -62,10 +62,12 @@ public class bookdispservlet extends HttpServlet {
 			else if(action.equals("searchborroworder"))
 			{
 				String uname = "";
+				int uid = 0;
 				int stateid = Integer.parseInt(request.getParameter("book_stateid"));
 				bookDao dao = new bookDao();
-				dao.AddRental(dao.returnRentalid(),stateid);
 				uname = session.getAttribute("username").toString();
+				uid = (int)session.getAttribute("userid");
+				dao.AddRental(dao.returnRentalid(),stateid,uid);
 				List<UserTopBean>list = dao.findtop(uname);
 				session.setAttribute("userbookscount",list.size());
 				session.setAttribute("userbooks",list);

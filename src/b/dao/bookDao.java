@@ -254,23 +254,24 @@ public class bookDao
 
 
 
-	public void AddRental(int setnumber,int booknum)throws DAOException{
+	public void AddRental(int setnumber,int booknum,int userid)throws DAOException{
 		if(con == null)
 			getConnection();
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try
 		{
-			String sql = "INSERT INTO Rental VALUES(?,?,2,?,NULL,?)";
+			String sql = "INSERT INTO Rental VALUES(?,?,?,?,NULL,?)";
 			st = con.prepareStatement(sql);
 			st.setInt(1,setnumber);
 			st.setInt(2,booknum);
+			st.setInt(3,userid);
 			Date today = new Date(System.currentTimeMillis());
-			st.setDate(3,today);
+			st.setDate(4,today);
 			Calendar cal = Calendar.getInstance();
 			cal.add(Calendar.DATE,15);
 			today = new Date(cal.getTimeInMillis());
-			st.setDate(4,today);
+			st.setDate(5,today);
 			st.executeUpdate();
 		}catch(Exception e)
 		{
