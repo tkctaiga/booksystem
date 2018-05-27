@@ -36,7 +36,8 @@ public class ShowReturnBookServlet extends HttpServlet
 			else if (action.equals("returncon"))
 			{
 				int rentalid = 0;
-				int uid = 2;
+				int uid = 0;
+				uid = (int)session.getAttribute("userid");
 				rentalid = Integer.parseInt(request.getParameter("rental_id"));
 				bookDao dao = new bookDao();
 				List<UserTopBean>list = dao.returnconfim(uid,rentalid);
@@ -48,9 +49,14 @@ public class ShowReturnBookServlet extends HttpServlet
 			else if(action.equals("returnend"))
 			{
 				int rentalid = 0;
+				String uname = "";
 				rentalid = (int)session.getAttribute("rental_id");
 				bookDao dao = new bookDao();
 				dao.returnbookupdate(rentalid);
+				uname = session.getAttribute("username").toString();
+				List<UserTopBean>list = dao.findtop(uname);
+				session.setAttribute("userbookscount",list.size());
+				session.setAttribute("userbooks",list);
 				gotoPage(request,response,"/returnorder.jsp");
 			}
 			//ログアウト

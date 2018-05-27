@@ -11,7 +11,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import b.bean.UserTopBean;
 import b.bean.bookBean;
 import b.dao.DAOException;
 import b.dao.bookDao;
@@ -28,6 +30,7 @@ public class bookdispservlet extends HttpServlet {
 	{
 		try
 		{
+			HttpSession session = request.getSession(true);
 			request.setCharacterEncoding("UTF-8");
 			String action = request.getParameter("action");
 			if(action == null || action.length() == 0 || action.equals("top"))
@@ -51,7 +54,6 @@ public class bookdispservlet extends HttpServlet {
 				String book_name = request.getParameter("book_name");
 				bookDao dao = new bookDao();
 				List<bookBean>list = dao.findconfim(book_name);
-				System.out.println(dao.returnRentalid());
 				request.setAttribute("bookscount",list.size());
 				request.setAttribute("books",list);
 				gotoPage(request,response,"/borrowconfirm.jsp");
@@ -59,19 +61,15 @@ public class bookdispservlet extends HttpServlet {
 			//借りる確定
 			else if(action.equals("searchborroworder"))
 			{
+				String uname = "";
 				int stateid = Integer.parseInt(request.getParameter("book_stateid"));
 				bookDao dao = new bookDao();
-				System.out.println(stateid);
 				dao.AddRental(dao.returnRentalid(),stateid);
+				uname = session.getAttribute("username").toString();
+				List<UserTopBean>list = dao.findtop(uname);
+				session.setAttribute("userbookscount",list.size());
+				session.setAttribute("userbooks",list);
 				gotoPage(request,response,"/borroworder.jsp");
-			}
-			//一覧
-			else if(action.equals("userinformation"))
-			{
-				bookDao dao = new bookDao();
-				List<bookBean>list = dao.findAll();
-				request.setAttribute("books",list);
-				gotoPage(request,response,"/return.jsp");
 			}
 			//ログアウト
 			else if(action.equals("userout"))

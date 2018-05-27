@@ -37,12 +37,6 @@ public class mainmenuservlet extends HttpServlet {
 			//トップページ
 			else if (action.equals("usermenu"))
 			{
-				bookDao dao = new bookDao();
-				List<UserTopBean>list = dao.findtop();
-				request.setAttribute("username",list);
-				session.setAttribute("userbookscount",list.size());
-				session.setAttribute("userbooks",list);
-
 				gotoPage(request,response,"/usermenu.jsp");
 			}
 			//検索
@@ -65,8 +59,9 @@ public class mainmenuservlet extends HttpServlet {
 			else if(action.equals("userreturn"))
 			{
 				bookDao dao = new bookDao();
-				List<UserTopBean>list = dao.findtop();
-				request.setAttribute("username",list);
+				String uname = "";
+				uname = session.getAttribute("username").toString();
+				List<UserTopBean>list = dao.findtop(uname);
 				session.setAttribute("userbookscount",list.size());
 				session.setAttribute("userbooks",list);
 				gotoPage(request,response,"/return.jsp");

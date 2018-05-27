@@ -175,7 +175,7 @@ public class bookDao
 		}
 	}
 
-	public List<UserTopBean>findtop() throws DAOException
+	public List<UserTopBean>findtop(String name) throws DAOException
 	{
 		if(con == null)
 			getConnection();
@@ -183,9 +183,10 @@ public class bookDao
 		ResultSet rs = null;
 		try
 		{
-			String sql = "SELECT u.user_id,u.user_name,r.bookstate_id,bi.bookinfo_name,r.rental_roal,r.rental_dead,r.rental_return,r.rental_id FROM users u,rental r,bookstate bs,bookinfo bi WHERE u.user_id = r.user_id AND bs.bookinfo_isbn = bi.bookinfo_isbn AND r.bookstate_id = bs.bookstate_id AND u.user_name = '水沼　次郎' AND r.rental_return IS NULL";
+			String sql = "SELECT u.user_id,u.user_name,r.bookstate_id,bi.bookinfo_name,r.rental_roal,r.rental_dead,r.rental_return,r.rental_id FROM users u,rental r,bookstate bs,bookinfo bi WHERE u.user_id = r.user_id AND bs.bookinfo_isbn = bi.bookinfo_isbn AND r.bookstate_id = bs.bookstate_id AND u.user_name = ? AND r.rental_return IS NULL";
 
 			st = con.prepareStatement(sql);
+			st.setString(1,name);
 			rs = st.executeQuery();
 			List<UserTopBean>list = new ArrayList<UserTopBean>();
 			while(rs.next())
@@ -389,6 +390,5 @@ public class bookDao
 			}
 		}
 	}
-
 }
 

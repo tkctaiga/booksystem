@@ -2,6 +2,7 @@ package b.servlet;
 
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,8 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import b.bean.UserTopBean;
 import b.dao.DAOException;
 import b.dao.LoginDAO;
+import b.dao.bookDao;
 
 
 
@@ -60,6 +63,13 @@ public class loginservlet extends HttpServlet {
 		                        if(role == 0){
 		                            gotoPage(request, response,"/managermenu.jsp");
 		                        }else{
+		            				bookDao dao = new bookDao();
+		            				String uname = login.getUserName(id);
+		            				List<UserTopBean>list = dao.findtop(uname);
+		            				session.setAttribute("username",uname);
+		            				session.setAttribute("userid",id);
+		            				session.setAttribute("userbookscount",list.size());
+		            				session.setAttribute("userbooks",list);
 		                            gotoPage(request, response, "/usermenu.jsp");
 		                        }
 			         }
