@@ -13,14 +13,14 @@ import java.util.List;
 import b.bean.UserTopBean;
 import b.bean.bookBean;
 
-public class bookDao
+public class DeleteBookDao
 {
 	private Connection con;
-	public bookDao() throws DAOException
+	public DeleteBookDao() throws DAOException
 	{
 		getConnection();
 	}
-	public List<bookBean>findAll() throws DAOException
+						public List<bookBean>findAll() throws DAOException
 	{
 		if(con == null)
 			getConnection();
@@ -143,7 +143,7 @@ public class bookDao
 		ResultSet rs = null;
 		try
 		{
-			String sql = "SELECT bi.bookinfo_name,bs.bookstate_id FROM bookinfo bi,bookstate bs WHERE bi.bookinfo_isbn = bs.bookinfo_isbn AND bi.bookinfo_name = ? AND NOT EXISTS (SELECT bs.bookstate_id FROM Rental WHERE bs.bookstate_id = bookstate_id AND rental_return IS NULL OR bs.bookstate_dis IS NOT NULL)";
+			String sql = "SELECT bi.bookinfo_name,bs.bookstate_id FROM bookinfo bi,bookstate bs WHERE bi.bookinfo_isbn = bs.bookinfo_isbn AND bi.bookinfo_name = ? AND NOT EXISTS (SELECT bs.bookstate_id FROM Rental WHERE bs.bookstate_id = bookstate_id AND rental_return IS NULL)";
 
 			st = con.prepareStatement(sql);
 			st.setString(1,uname);
@@ -175,7 +175,7 @@ public class bookDao
 		}
 	}
 
-	public List<UserTopBean>findtop(String name) throws DAOException
+	public List<UserTopBean>findtop() throws DAOException
 	{
 		if(con == null)
 			getConnection();
@@ -183,10 +183,9 @@ public class bookDao
 		ResultSet rs = null;
 		try
 		{
-			String sql = "SELECT u.user_id,u.user_name,r.bookstate_id,bi.bookinfo_name,r.rental_roal,r.rental_dead,r.rental_return,r.rental_id FROM users u,rental r,bookstate bs,bookinfo bi WHERE u.user_id = r.user_id AND bs.bookinfo_isbn = bi.bookinfo_isbn AND r.bookstate_id = bs.bookstate_id AND u.user_name = ? AND r.rental_return IS NULL";
+			String sql = "SELECT u.user_id,u.user_name,r.bookstate_id,bi.bookinfo_name,r.rental_roal,r.rental_dead,r.rental_return,r.rental_id FROM users u,rental r,bookstate bs,bookinfo bi WHERE u.user_id = r.user_id AND bs.bookinfo_isbn = bi.bookinfo_isbn AND r.bookstate_id = bs.bookstate_id AND u.user_name = '水沼　次郎' AND r.rental_return IS NULL";
 
 			st = con.prepareStatement(sql);
-			st.setString(1,name);
 			rs = st.executeQuery();
 			List<UserTopBean>list = new ArrayList<UserTopBean>();
 			while(rs.next())
@@ -254,24 +253,23 @@ public class bookDao
 
 
 
-	public void AddRental(int setnumber,int booknum,int userid)throws DAOException{
+	public void AddRental(int setnumber,int booknum)throws DAOException{
 		if(con == null)
 			getConnection();
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try
 		{
-			String sql = "INSERT INTO Rental VALUES(?,?,?,?,NULL,?)";
+			String sql = "INSERT INTO Rental VALUES(?,?,2,?,NULL,?)";
 			st = con.prepareStatement(sql);
 			st.setInt(1,setnumber);
 			st.setInt(2,booknum);
-			st.setInt(3,userid);
 			Date today = new Date(System.currentTimeMillis());
-			st.setDate(4,today);
+			st.setDate(3,today);
 			Calendar cal = Calendar.getInstance();
 			cal.add(Calendar.DATE,15);
 			today = new Date(cal.getTimeInMillis());
-			st.setDate(5,today);
+			st.setDate(4,today);
 			st.executeUpdate();
 		}catch(Exception e)
 		{
@@ -375,84 +373,6 @@ public class bookDao
 				list.add(bean);
 			}
 		return list;
-		}catch(Exception e)
-		{
-			e.printStackTrace();
-			throw new DAOException("レコードの取得に失敗しました");
-		}finally{
-			try
-			{
-				if(rs != null)rs.close();
-				if(st != null)st.close();
-				close();
-			}catch(Exception e)
-			{
-				throw new DAOException("リソースの開放に失敗しました");
-			}
-		}
-	}
-
-	public List<bookBean>deleteconfim(int bookstateid) throws DAOException
-	{
-		if(con == null)
-			getConnection();
-		PreparedStatement st = null;
-		ResultSet rs = null;
-		try
-		{
-			String sql = "SELECT bs.bookstate_id,bi.bookinfo_name,bs.bookstate_dis FROM bookstate bs,bookinfo bi WHERE bi.bookinfo_isbn = bs.bookinfo_isbn AND bs.bookstate_id = ? ORDER BY bs.bookstate_id";
-			st = con.prepareStatement(sql);
-			st.setInt(1,bookstateid);
-			rs = st.executeQuery();
-			List<bookBean>list = new ArrayList<bookBean>();
-			while(rs.next())
-			{
-				String m_name = rs.getString("bookinfo_name");
-				int m_bookid = rs.getInt("bookstate_id");
-				bookBean bean = new bookBean(m_name,m_bookid);
-				list.add(bean);
-			}
-		return list;
-		}catch(Exception e)
-		{
-			e.printStackTrace();
-			throw new DAOException("レコードの取得に失敗しました");
-		}finally{
-			try
-			{
-				if(rs != null)rs.close();
-				if(st != null)st.close();
-				close();
-			}catch(Exception e)
-			{
-				throw new DAOException("リソースの開放に失敗しました");
-			}
-		}
-	}
-
-
-	public void deletebook(int bookstateid,String com) throws DAOException
-	{
-		if(con == null)
-			getConnection();
-		PreparedStatement st = null;
-		ResultSet rs = null;
-		try
-		{
-
-			String sql ="UPDATE bookstate SET bookstate_dis = ? WHERE bookstate_id = ?";
-			String sql2 ="UPDATE bookstate SET bookstate_rem = ? WHERE bookstate_id = ?";
-
-			st = con.prepareStatement(sql);
-			Date today = new Date(System.currentTimeMillis());
-			st.setDate(1,today);
-			st.setInt(2,bookstateid);
-			st.executeUpdate();
-			st = con.prepareStatement(sql2);
-			st.setString(1,com);
-			st.setInt(2,bookstateid);
-			st.executeUpdate();
-
 		}catch(Exception e)
 		{
 			e.printStackTrace();

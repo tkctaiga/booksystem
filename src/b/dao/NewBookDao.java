@@ -13,7 +13,7 @@ public class NewBookDao {
 	private Connection con;
 
 	public NewBookDao() throws DAOException {
-		// getConnection();
+		getConnection();
 	}
 
 	public void saveOrder(NewBookBean nbook) throws DAOException {

@@ -28,7 +28,7 @@ public class ManagerMenuServlet extends HttpServlet {
 			//メイン
 			else if (action.equals("mmain"))
 			{
-				gotoPage(request,response,"/managermenu.jsp");
+				gotoPage(request,response,"/managertop.jsp");
 			}
 			//本の登録
 			else if(action.equals("mregister"))
