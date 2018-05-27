@@ -4,15 +4,17 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>ログアウト</title>
+<title>registerfinished</title>
 </head>
 <body>
 
-<h1>ログアウトしました</h1>
-
+<font color="#ff6666">登録完了!</font>
+<br>
+<br>
+あなたのIDは${userNumber}です。
+<br>
 <br>
 <br>
 <a href="/booksystem/loginservlet?action=loginpage">ログインページへ</a>
-
 </body>
 </html>

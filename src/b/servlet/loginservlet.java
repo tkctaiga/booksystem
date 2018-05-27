@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import b.dao.DAOException;
+import b.dao.LoginDAO;
+
 
 
 /**
@@ -19,13 +22,10 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/loginservlet")
 public class loginservlet extends HttpServlet {
 
-	        private final String USER = "";
-            private final String PASS = "";
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-	{
-
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		    request.setCharacterEncoding("UTF-8");
 		    response.setContentType("text/html;charset=UTF-8");
+
 
 			String action = request.getParameter("action");
 			if(action == null || action.length() == 0 || action.equals("top"))
@@ -38,33 +38,37 @@ public class loginservlet extends HttpServlet {
 				gotoPage(request, response,"/librarylogin.jsp");
 
 			}
-			//新規会員登録の処理
-			else if(action.equals("newuser"))
-			{
-				gotoPage(request,response,"/newuser.jsp");
-			}
-			//新規会員登録の処理
-			else if(action.equals("login"))
-			{
-	        // ログイン時はユーザ名とパスワードを取得する
-				        String name = request.getParameter("id");
-				    	String passWord = request.getParameter("password");
-	                    // ユーザー名とパスワードが一致したら
-				    	if(name.equals(USER) && passWord.equals(PASS)){
-	                        // セッション管理を行う
-				    		HttpSession session = request.getSession();
-				    		// ログイン済みの属性を設定する
-				    		session.setAttribute("isLogin", "true");
-				    		gotoPage(request, response,"/usermenu.jsp");
-				    	}else{
-				    		request.setAttribute("message", "IDまたはパスワードが違います");
-				    		gotoPage(request, response,"/error.jsp");
-				    	}
-			}
-			//新規会員登録確認の処理
-			else if(action.equals("addconfirm"))
-			{
-				gotoPage(request,response,"/userconfirm.jsp");
+			//ログインの処理
+			else if(action.equals("login")){
+				 try{
+			         int id = Integer.parseInt(request.getParameter("id"));
+			         String password = request.getParameter("password");
+
+		             LoginDAO login = new LoginDAO();
+		             int result = login.welcomeLibrary(id, password);
+		             // ユーザー名とパスワードが一致したら
+			         if(result == 0){
+			    	         request.setAttribute("message", "IDまたはパスワードが違います");
+			    	         gotoPage(request, response, "error.jsp");
+			         }else {
+			                 // セッション管理を行う
+			                 HttpSession session = request.getSession();
+				             // ログイン済みの属性を設定する
+					         session.setAttribute("isLogin", "true");
+					        // データベースから取ってきたroleでフォワードするJSPを分ける
+		                    int role = login.divideUser(id);
+		                        if(role == 0){
+		                            gotoPage(request, response,"/managermenu.jsp");
+		                        }else{
+		                            gotoPage(request, response, "/usermenu.jsp");
+		                        }
+			         }
+		        }catch(DAOException e){
+		        	 e.printStackTrace();
+		        	 request.setAttribute("message", "内部エラーが発生しました");
+		        	 gotoPage(request, response, "error.jsp");
+		        }
+
 			}else{
 				gotoPage(request,response,"/error.jsp");
 			}

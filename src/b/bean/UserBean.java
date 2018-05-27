@@ -4,8 +4,10 @@ import java.io.Serializable;
 public class UserBean implements Serializable
 {
       private String password;
-      private int id;
+      private String id;
       private String name;
+      private String postal1;
+      private String postal2;
       private String address;
       private String number1;
       private String number2;
@@ -14,24 +16,18 @@ public class UserBean implements Serializable
       private String birthday2;
       private String birthday3;
       private String sex;
-      private String userrole;
 
-      public UserBean(int id, String password){
+      public UserBean(String id, String password){
             this.id = id;
             this.password = password;
       }
 
-      public UserBean(int id, String password, String userrole){
-            this.id = id;
+      public UserBean(String password, String name, String postal1, String postal2, String address,
+    		  String number1, String number2, String number3, String birthday1, String birthday2, String birthday3, String sex){
             this.password = password;
-            this.userrole = userrole;
-      }
-
-      public UserBean(String password, int id, String name, String address, String number1, String number2, String number3,
-                      String birthday1, String birthday2, String birthday3, String sex){
-            this.password = password;
-            this.id = id;
             this.name = name;
+            this.postal1 = postal1;
+            this.postal2 = postal2;
             this.address = address;
             this.number1 = number1;
             this.number2 = number2;
@@ -55,8 +51,12 @@ public class UserBean implements Serializable
              this.password = password;
       }
 
-      public int id(){
+      public String getId(){
     	     return id;
+      }
+
+      public void setId(String id){
+    	     this.id = id;
       }
 
       public String getName(){
@@ -66,6 +66,22 @@ public class UserBean implements Serializable
       public void setName(String name){
              this.name = name;
 
+      }
+
+      public String getPostal1(){
+    	     return postal1;
+      }
+
+      public void setPostal1(String postal1){
+    	     this.postal1 = postal1;
+      }
+
+      public String getPostal2(){
+ 	         return postal2;
+      }
+
+      public void setPostal2(String postal2){
+ 	         this.postal2 = postal2;
       }
 
       public String getAddress(){
@@ -81,7 +97,7 @@ public class UserBean implements Serializable
 
       }
 
-      public void getNumber1(String number1){
+      public void setNumber1(String number1){
              this.number1 =number1;
       }
 
@@ -101,7 +117,7 @@ public class UserBean implements Serializable
              this.number3 =number3;
       }
 
-      public String getbirthday1(){
+      public String getBirthday1(){
     	     return birthday1;
       }
 
@@ -109,7 +125,7 @@ public class UserBean implements Serializable
     	     this.birthday1 = birthday1;
       }
 
-      public String getbirthday2(){
+      public String getBirthday2(){
  	     return birthday2;
       }
 
@@ -117,7 +133,7 @@ public class UserBean implements Serializable
  	     this.birthday2 = birthday2;
       }
 
-      public String getbirthday3(){
+      public String getBirthday3(){
   	     return birthday3;
       }
 
@@ -134,11 +150,4 @@ public class UserBean implements Serializable
     	     this.sex = sex;
       }
 
-      public String getUserrole(){
-    	     return userrole;
-      }
-
-      public void setUserrole(String userrole){
-    	     this.userrole = userrole;
-      }
 }
