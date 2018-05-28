@@ -48,7 +48,7 @@ public class ManagerMenuServlet extends HttpServlet {
 			//貸返照会
 			else if(action.equals("mbruser"))
 			{
-				gotoPage(request,response,"/rensearch.jsp");
+				gotoPage(request,response,"/searchborrowuser.jsp");
 			}
 			//ログアウト
 			else if(action.equals("mlogout"))
