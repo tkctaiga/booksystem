@@ -144,4 +144,34 @@ public class RentalUserDao
 		}
 
 	}
+
+	public void userchangepass(String id,String cpass) throws DAOException
+	{
+		if(con == null)
+			getConnection();
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try
+		{
+			String sql ="UPDATE USERS SET user_password = ? WHERE user_id = ?";
+			st = con.prepareStatement(sql);
+			st.setString(1,cpass);
+			st.setInt(2,Integer.parseInt(id));
+			st.executeUpdate();
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました");
+		}finally{
+			try
+			{
+				if(rs != null)rs.close();
+				if(st != null)st.close();
+				close();
+			}catch(Exception e)
+			{
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
+	}
 }

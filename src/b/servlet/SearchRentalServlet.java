@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import b.bean.RentalBean;
 import b.dao.DAOException;
@@ -24,6 +25,7 @@ public class SearchRentalServlet extends HttpServlet
 	{
 		try
 		{
+			HttpSession session = request.getSession(true);
 			String action = request.getParameter("action");
 			if(action == null || action.length() == 0 || action.equals("managertop"))
 			{
@@ -48,6 +50,41 @@ public class SearchRentalServlet extends HttpServlet
 				request.setAttribute("rens",list);
 				gotoPage(request,response,"/rendetail.jsp");
 			}
+			//会員のパスワード変更①
+			//パスワード入力機能
+			else if(action.equals("passchange"))
+			{
+				//管理人パスワード①
+				String pass = request.getParameter("pass");
+				//変更したいID②
+				String id = request.getParameter("id");
+				//変更したいパスワード③
+				String cpass = request.getParameter("cpass");
+				if(pass.equals("book13"))
+				{
+					session.setAttribute("id",id);
+					session.setAttribute("cpass",cpass);
+					gotoPage(request,response,"/manegerchangeconfim.jsp");
+
+				}
+				else
+				{
+					gotoPage(request,response,"/manegermenu.jsp");
+				}
+			}
+			//会員のパスワード変更確認②
+			//確認機能
+			else if(action.equals("passchangeconf"))
+			{
+				String id = "";
+				String cpass = "";
+				id = session.getAttribute("id").toString();
+				cpass = session.getAttribute("cpass").toString();
+				RentalUserDao dao = new RentalUserDao();
+				dao.userchangepass(id, cpass);
+				gotoPage(request,response,"/manegerpassend.jsp");
+			}
+
 			//ログアウト
 			else if(action.equals("mlogout"))
 			{
