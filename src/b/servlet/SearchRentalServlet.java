@@ -1,7 +1,7 @@
 package b.servlet;
 
-
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,45 +10,43 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import b.bean.RentalBean;
+import b.dao.DAOException;
+import b.dao.RentalUserDao;
 
 /**
- * Servlet implementation class ShoeItemServlet
+ * Servlet implementation class SearchRentalServlet
  */
-@WebServlet("/ManagerMenuServlet")
-public class ManagerMenuServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-
+@WebServlet("/SearchRentalServlet")
+public class SearchRentalServlet extends HttpServlet
+{
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
+		try
+		{
 			String action = request.getParameter("action");
 			if(action == null || action.length() == 0 || action.equals("managertop"))
 			{
 				gotoPage(request,response,"/.jsp");
 			}
-			//メイン
-			else if (action.equals("mmain"))
+			//検索結果
+			else if(action.equals("result"))
 			{
-				gotoPage(request,response,"/managertop.jsp");
+				//int userid = Integer.parseInt(request.getParameter("userid"));
+				String userid = request.getParameter("userid");
+				RentalUserDao dao = new RentalUserDao();
+				List<RentalBean>list = dao.RenSearch(userid);
+				request.setAttribute("rens",list);
+				gotoPage(request,response,"/renresult.jsp");
 			}
-			//本の登録
-			else if(action.equals("mregister"))
+			//検索詳細
+			else if(action.equals("detail"))
 			{
-				gotoPage(request,response,"/newbook.jsp");
-			}
-			//本の削除
-			else if(action.equals("mdelete"))
-			{
-				gotoPage(request,response,"/deletebook.jsp");
-			}
-			//会員照会
-			else if(action.equals("mchuser"))
-			{
-				gotoPage(request,response,"/searchuser.jsp");
-			}
-			//貸返照会
-			else if(action.equals("mbruser"))
-			{
-				gotoPage(request,response,"/rensearch.jsp");
+				int userid = Integer.parseInt(request.getParameter("renid"));
+				RentalUserDao dao = new RentalUserDao();
+				List<RentalBean>list = dao.RenDetail(userid);
+				request.setAttribute("rens",list);
+				gotoPage(request,response,"/rendetail.jsp");
 			}
 			//ログアウト
 			else if(action.equals("mlogout"))
@@ -57,7 +55,12 @@ public class ManagerMenuServlet extends HttpServlet {
 			}else{
 				gotoPage(request,response,"/error.jsp");
 			}
-
+		}catch (DAOException e)
+		{
+			e.printStackTrace();
+			request.setAttribute("message","内部エラーが発生しました");
+			gotoPage(request,response,"/error.jsp");
+		}
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
@@ -80,5 +83,4 @@ public class ManagerMenuServlet extends HttpServlet {
 		//	throw new ServletException();
 		//}
 	}
-
 }

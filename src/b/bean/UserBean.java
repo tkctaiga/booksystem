@@ -21,7 +21,6 @@ public class UserBean implements Serializable
             this.id = id;
             this.password = password;
       }
-
       public UserBean(String password, String name, String postal1, String postal2, String address,
     		  String number1, String number2, String number3, String birthday1, String birthday2, String birthday3, String sex){
             this.password = password;
