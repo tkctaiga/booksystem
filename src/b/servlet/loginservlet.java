@@ -60,14 +60,22 @@ public class loginservlet extends HttpServlet {
 					         session.setAttribute("isLogin", "true");
 					        // データベースから取ってきたroleでフォワードするJSPを分ける
 		                    int role = login.divideUser(id);
+            				String uname = login.getUserName(id);
 		                        if(role == 0){
+		                        	//管理者
+		                        	//ユーザーIDとユーザー名前をセッションで保存
+		                        	session.setAttribute("username",uname);
+		            				session.setAttribute("userid",id);
 		                            gotoPage(request, response,"/managermenu.jsp");
 		                        }else{
+		                        	//ユーザー
+		                        	//ユーザーIDとユーザー名前をセッションで保存
+		                        	//トップに表示するリストの作成
 		            				bookDao dao = new bookDao();
-		            				String uname = login.getUserName(id);
 		            				List<UserTopBean>list = dao.findtop(uname);
 		            				session.setAttribute("username",uname);
 		            				session.setAttribute("userid",id);
+
 		            				session.setAttribute("userbookscount",list.size());
 		            				session.setAttribute("userbooks",list);
 		                            gotoPage(request, response, "/usermenu.jsp");

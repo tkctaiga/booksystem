@@ -10,10 +10,6 @@
 <body>
 
 <jsp:include page="/usermenu.jsp"/>
-
-
-
 ようこそ${user.name}さん！
-
 </body>
 </html>
