@@ -80,7 +80,7 @@ public class RegisterServlet extends HttpServlet {
                            selectedsex = "女";
 
                        default:
-                           selectedsex = "???";
+                           selectedsex = "女";
                            break;
                        }
                        request.setAttribute("selectsex",selectedsex );
@@ -110,6 +110,7 @@ public class RegisterServlet extends HttpServlet {
 
                   UserDAO register = new UserDAO();
                   int userNumber = register.saveUser(user);
+                  System.out.println(userNumber);
                   // 登録後はセッション情報をクリア
                   session.removeAttribute("user");
                   // ユーザーIDをクライアントへ送る

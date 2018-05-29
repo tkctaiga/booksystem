@@ -1,6 +1,7 @@
 package b.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,24 +23,38 @@ public class UserDAO {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 
+		String Tel = user.getNumber1()  + user.getNumber2()  + user.getNumber3();
+		String Zip = user.getPostal1() + user.getPostal2();
+		String Birthday = user.getBirthday1() + "-" + user.getBirthday2() + "-" + user.getBirthday3();
+		Date formatdate = Date.valueOf(Birthday);
+
+
 		try {
-			String sql = "insert into users(user_password, user_name, user_address, user_tel, user_postel, user_birthday, user_sex) VALUES(?,?,?,?,?,?,?)";
+			 int userNumber = 0;
+		     String sql = "SELECT nextval('users_user_id_seq')";
+		     st = con.prepareStatement(sql);
+		     rs = st.executeQuery();
+		     if(rs.next()){
+			    userNumber = rs.getInt(1);
+		     }
+			 rs.close();
+			 st.close();
+
+			sql = "insert into users(user_id, user_password, user_name, user_address, user_tel, user_postal, user_birthday, user_sex) VALUES(?,?,?,?,?,?,?,?)";
 			st = con.prepareStatement(sql);
 			// プレースホルダーの設定
-			st.setString(1, user.getPassword());
-			st.setString(2, user.getName());
-			st.setString(3, user.getAddress());
-			String Tel = user.getNumber1() + "-" + user.getNumber2() + "-" + user.getNumber3();
-			st.setString(4, user.getTel());
-			st.setString(5, user.getPostal1());
-			st.setString(6, user.getPostal2());
-			String Birthday = user.getBirthday1() + user.getBirthday2() + user.getBirthday3();
-			st.setString(7, user.getBirthday());
-			st.setString(8, user.getSex());
+			st.setInt(1, userNumber);
+			st.setString(2, user.getPassword());
+			st.setString(3, user.getName());
+			st.setString(4, user.getAddress());
+			st.setString(5, Tel);
+			st.setString(6, Zip);
+			st.setDate(7, formatdate);
+			st.setInt(8, Integer.parseInt(user.getSex()));
 			// SQLの実行
 			st.executeUpdate();
 			st.close();
-
+			return userNumber;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new DAOException("レコードの操作に失敗しました。");
@@ -56,7 +71,6 @@ public class UserDAO {
 				throw new DAOException("リソースの開放に失敗しました。");
 			}
 		}
-		return 0;
 	}
 
 	// ユーザーパスワードの真偽
