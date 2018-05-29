@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>会員情報</title>
+<title>退会確認ページへ</title>
 </head>
 <body>
 図書システム<hr>
@@ -13,19 +13,11 @@
 <a href="/booksystem/mainmenuservlet?action=userreturn">返却</a>
 <a href="/booksystem/mainmenuservlet?action=userinformation"><font color="#ff6666">■会員情報</font></a>
 <a href="/booksystem/mainmenuservlet?action=userout">ログアウト</a>
-<form action="/booksystem/ChangemenuServlet" method="post">
-<h3>会員変更ページ</h3>
-<br>
-①氏名<input type="text" name="chname">
-<br>
-②住所<input type="text" name="chaddress">
-<br>
-③電話番号<input type="text" name="chnumber1">-<input type="text" name="chnumber2">-<input type="text" name="chnumber3">
-<br>
-<input type="hidden" name="menu" value="userinfo">
-<input type="hidden" name="action" value="password">
-<input type="submit" value="登録">
-</form>
+<br><br><br>
+会員ID${userId}<br>
+名前${userName}<br>
+<h3>退会してもよろしいですか？</h3>
+<input type="submit" value="退会">
+<input type="hidden" name="action" value="userdeletefinish">
 </body>
 </html>
-

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>会員情報</title>
+<title>Insert title here</title>
 </head>
 <body>
 図書システム<hr>
@@ -13,19 +13,16 @@
 <a href="/booksystem/mainmenuservlet?action=userreturn">返却</a>
 <a href="/booksystem/mainmenuservlet?action=userinformation"><font color="#ff6666">■会員情報</font></a>
 <a href="/booksystem/mainmenuservlet?action=userout">ログアウト</a>
+
+<h4>こちらで登録しますが、よろしいでしょうか？</h4>
+<br>
 <form action="/booksystem/ChangemenuServlet" method="post">
-<h3>会員変更ページ</h3>
-<br>
-①氏名<input type="text" name="chname">
-<br>
-②住所<input type="text" name="chaddress">
-<br>
-③電話番号<input type="text" name="chnumber1">-<input type="text" name="chnumber2">-<input type="text" name="chnumber3">
-<br>
-<input type="hidden" name="menu" value="userinfo">
-<input type="hidden" name="action" value="password">
+<h3>①氏名       ${changeUserInfo.name}</h3>
+<h3>②住所       ${changeUserInfo.address}</h3>
+<h3>③電話番号   ${changeUserInfo.number1} - ${changeUserInfo.number2} - ${changeUserInfo.number3}</h3>
 <input type="submit" value="登録">
+<input type="hidden" name="menu" value="userinfo">
+<input type="hidden" name="action" value="confirm">
 </form>
 </body>
 </html>
-

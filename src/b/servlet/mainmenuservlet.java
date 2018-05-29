@@ -69,7 +69,7 @@ public class mainmenuservlet extends HttpServlet {
 			//会員情報
 			else if(action.equals("userinformation"))
 			{
-				gotoPage(request,response,"/changeuserinfo.jsp");
+				gotoPage(request,response,"/userinfomenu.jsp");
 			}
 			//ログアウト
 			else if(action.equals("userout"))

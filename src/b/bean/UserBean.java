@@ -12,9 +12,11 @@ public class UserBean implements Serializable
       private String number1;
       private String number2;
       private String number3;
+      private String tel;
       private String birthday1;
       private String birthday2;
       private String birthday3;
+      private String birthday;
       private String sex;
 
       public UserBean(String id, String password){
@@ -34,6 +36,23 @@ public class UserBean implements Serializable
             this.birthday1 = birthday1;
             this.birthday2 = birthday2;
             this.birthday3 = birthday3;
+            this.sex = sex;
+      }
+      public UserBean(String password, String name, String postal1, String postal2, String address,
+    		  String number1, String number2, String number3, String tel, String birthday1, String birthday2, String birthday3, String birthday, String sex){
+            this.password = password;
+            this.name = name;
+            this.postal1 = postal1;
+            this.postal2 = postal2;
+            this.address = address;
+            this.number1 = number1;
+            this.number2 = number2;
+            this.number3 = number3;
+            this.tel = tel;
+            this.birthday1 = birthday1;
+            this.birthday2 = birthday2;
+            this.birthday3 = birthday3;
+            this.birthday = birthday;
             this.sex = sex;
       }
 
@@ -126,6 +145,13 @@ public class UserBean implements Serializable
       public void setNumber3(String number3){
              this.number3 =number3;
       }
+      public String getTel(){
+          return tel;
+      }
+
+      public void setTel(String tel){
+    	  this.tel = tel;
+      }
 
       public String getBirthday1(){
     	     return birthday1;
@@ -150,6 +176,13 @@ public class UserBean implements Serializable
       public void setBirthday3(String birthday3){
   	     this.birthday3 = birthday3;
       }
+      public String getBirthday(){
+    	     return birthday;
+        }
+
+        public void setBirthday(String birthday){
+    	     this.birthday = birthday;
+        }
 
 
       public String getSex(){
