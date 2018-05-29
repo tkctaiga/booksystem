@@ -32,12 +32,12 @@ public class RentalUserDao
 			//検索ボックスにIDあり
 			if(username.equals(""))
 			{
-				sql = "SELECT user_id,user_name FROM users ORDER BY user_id";
+				sql = "SELECT user_id,user_name FROM users WHERE user_dis IS NULL ORDER BY user_id";
 				st = con.prepareStatement(sql);
 			}//IDなし
 			else
 			{
-				sql = "SELECT user_id,user_name FROM users WHERE user_id = ? ORDER BY user_id";
+				sql = "SELECT user_id,user_name FROM users WHERE user_id = ? AND user_dis IS NULL ORDER BY user_id";
 				st = con.prepareStatement(sql);
 				st.setInt(1,Integer.parseInt(username));
 			}

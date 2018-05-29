@@ -64,6 +64,8 @@ public class SearchRentalServlet extends HttpServlet
 				RentalUserDao dao = new RentalUserDao();
 				if(userid.equals(""))
 				{
+					request.setAttribute("message","IDが未入力です");
+					gotoPage(request,response,"/error.jsp");
 					//未入力の場合
 					//エラーページ
 				}
