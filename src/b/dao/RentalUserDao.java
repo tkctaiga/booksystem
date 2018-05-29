@@ -11,6 +11,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import b.bean.RentalBean;
+import b.bean.UserBean;
 
 public class RentalUserDao
 {
@@ -47,6 +48,55 @@ public class RentalUserDao
 				String name = rs.getString("user_name");
 				int id = rs.getInt("user_id");
 				RentalBean bean = new RentalBean(id,name);
+				list.add(bean);
+			}
+		return list;
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました");
+		}finally{
+			try
+			{
+				if(rs != null)rs.close();
+				if(st != null)st.close();
+				close();
+			}catch(Exception e)
+			{
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
+	}
+	public List<UserBean>UserSearch(String userid) throws DAOException
+	{
+		if(con == null)
+			getConnection();
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try
+		{
+			String sql = "";
+			//検索ボックスにIDあり
+			if(userid.equals(""))
+			{
+				sql = "SELECT user_id,user_name,user_address,user_tel FROM USERS AND user_dis IS NULL ORDER BY user_id";
+				st = con.prepareStatement(sql);
+			}//IDなし
+			else
+			{
+				sql = "SELECT user_id,user_name,user_address,user_tel FROM USERS WHERE user_id = ? AND user_dis IS NULL ORDER BY user_id";
+				st = con.prepareStatement(sql);
+				st.setInt(1,Integer.parseInt(userid));
+			}
+			rs = st.executeQuery();
+			List<UserBean>list = new ArrayList<UserBean>();
+			while(rs.next())
+			{
+				String id = String.valueOf(rs.getInt("user_id"));
+				String name = rs.getString("user_name");
+				String address = rs.getString("user_address");
+				String tel = rs.getString("user_tel");
+				UserBean bean = new UserBean(id,name,tel,address);
 				list.add(bean);
 			}
 		return list;
@@ -111,6 +161,45 @@ public class RentalUserDao
 			}
 		}
 	}
+
+	public List<RentalBean>UserNowRental(int uid) throws DAOException
+	{
+		if(con == null)
+			getConnection();
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try
+		{
+			String sql = "SELECT user_id,rental_id,rental_return FROM RENTAL WHERE rental_return IS NULL AND user_id = ?";
+
+			st = con.prepareStatement(sql);
+			st.setInt(1,uid);
+			rs = st.executeQuery();
+			List<RentalBean>list = new ArrayList<RentalBean>();
+			while(rs.next())
+			{
+				int id = rs.getInt("rental_id");
+				RentalBean bean = new RentalBean(id);
+				list.add(bean);
+			}
+		return list;
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました");
+		}finally{
+			try
+			{
+				if(rs != null)rs.close();
+				if(st != null)st.close();
+				close();
+			}catch(Exception e)
+			{
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
+	}
+
 
 
 

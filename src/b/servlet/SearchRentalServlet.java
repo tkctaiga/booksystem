@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import b.bean.RentalBean;
+import b.bean.UserBean;
 import b.dao.DAOException;
 import b.dao.RentalUserDao;
 
@@ -49,6 +50,39 @@ public class SearchRentalServlet extends HttpServlet
 				List<RentalBean>list = dao.RenDetail(userid);
 				request.setAttribute("rens",list);
 				gotoPage(request,response,"/rendetail.jsp");
+			}
+			//会員照会処理
+			else if(action.equals("usersearch"))
+			{
+				//int userid = Integer.parseInt(request.getParameter("userid"));
+				gotoPage(request,response,"/usersearch.jsp");
+			}
+			//会員照会検索詳細
+			else if(action.equals("userend"))
+			{
+				String userid = request.getParameter("userid");
+				RentalUserDao dao = new RentalUserDao();
+				if(userid.equals(""))
+				{
+					//未入力の場合
+					//エラーページ
+				}
+				else
+				{
+					List<UserBean>list = dao.UserSearch(userid);
+					List<RentalBean>list2 = dao.UserNowRental(Integer.parseInt(userid));
+					request.setAttribute("users",list);
+					request.setAttribute("users2",list2.size());
+					gotoPage(request,response,"/usersearchconf.jsp");
+				}
+			}
+
+			//会員処理
+			//会員のパスワード変更①
+			//パスワード入力機能
+			else if(action.equals("pass"))
+			{
+				gotoPage(request,response,"/manegerpasschange.jsp");
 			}
 			//会員のパスワード変更①
 			//パスワード入力機能

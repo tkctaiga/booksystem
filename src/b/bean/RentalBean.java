@@ -19,6 +19,10 @@ public class RentalBean implements Serializable
     {
 
     }
+    public RentalBean (int userid)
+    {
+    	this.userid = userid;
+    }
     public RentalBean (int userid,String username)
     {
     	this.userid = userid;

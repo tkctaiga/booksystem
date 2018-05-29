@@ -10,9 +10,7 @@
 
 <jsp:include page="/managermenu.jsp"/>
 
-<h2>本の削除</h2><br><br><br><br>
-
-
+<h2>本の削除</h2>
 <form action="/booksystem/DeleteBookServlet?action=dblist" method="post"><br>
 	<table border="1">
 		<tr>

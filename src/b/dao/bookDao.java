@@ -75,14 +75,14 @@ public class bookDao
 				//ケース1 検索名なしカテゴリ検索なしの場合
 				if(category.equals("10"))
 				{
-					sql = "SELECT b.bookinfo_isbn,c.category_name,b.bookinfo_name,b.bookinfo_author,p.publisher_name FROM bookinfo b, publisher p,category c WHERE b.publisher_code = p.publisher_code AND b.category_code = c.category_code";
+					sql = "SELECT DISTINCT b.bookinfo_isbn,c.category_name,b.bookinfo_name,b.bookinfo_author,b.publisher_name,bs.bookstate_rem FROM bookinfo b,category c,bookstate bs WHERE b.category_code = c.category_code AND b.bookinfo_isbn = bs.bookinfo_isbn AND bookstate_rem IS NULL";
 					st = con.prepareStatement(sql);
 
 				}
 				//ケース2 検索名なしカテゴリ検索ありの場合
 				else
 				{
-					sql = "SELECT b.bookinfo_isbn,c.category_name,b.bookinfo_name,b.bookinfo_author,p.publisher_name FROM bookinfo b, publisher p,category c WHERE b.category_code = ? AND b.publisher_code = p.publisher_code AND b.category_code = c.category_code";
+					sql = "SELECT b.bookinfo_isbn,c.category_name,b.bookinfo_name,b.bookinfo_author,b.publisher_name FROM bookinfo b,category c WHERE b.category_code = ? AND b.category_code = c.category_code";
 					st = con.prepareStatement(sql);
 					st.setString(1,category);
 				}
@@ -92,14 +92,14 @@ public class bookDao
 				//ケース3 検索名ありカテゴリ検索なしの場合
 				if(category.equals("10"))
 				{
-					sql = "SELECT b.bookinfo_isbn,c.category_name,b.bookinfo_name,b.bookinfo_author,p.publisher_name FROM bookinfo b, publisher p,category c WHERE b.publisher_code = p.publisher_code AND b.category_code = c.category_code AND b.bookinfo_name LIKE ?";
+					sql = "SELECT b.bookinfo_isbn,c.category_name,b.bookinfo_name,b.bookinfo_author,b.publisher_name FROM bookinfo b,category c WHERE b.category_code = c.category_code AND b.bookinfo_name LIKE ?";
 					st = con.prepareStatement(sql);
 					st.setString(1,"%"+searchname+"%");
 				}
 				//ケース4 検索名ありカテゴリ検索ありの場合
 				else
 				{
-					sql = "SELECT b.bookinfo_isbn,c.category_name,b.bookinfo_name,b.bookinfo_author,p.publisher_name FROM bookinfo b, publisher p,category c WHERE category_code = ? AND b.publisher_code = p.publisher_code AND b.category_code = c.category_code AND b.bookinfo_name LIKE ?";
+					sql = "SELECT b.bookinfo_isbn,c.category_name,b.bookinfo_name,b.bookinfo_author,b.publisher_name FROM bookinfo b,category c WHERE category_code = ? AND b.category_code = c.category_code AND b.bookinfo_name LIKE ?";
 					st = con.prepareStatement(sql);
 					st.setString(1,category);
 					st.setString(2,"%"+searchname+"%");

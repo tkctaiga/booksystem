@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<h1>○○図書システム</h1>
+<h1>図書システム</h1>
 
 <a href="/booksystem/ManagerMenuServlet?action=mmain">メイン</a>
 <a href="/booksystem/ManagerMenuServlet?action=mregister">本の登録</a>

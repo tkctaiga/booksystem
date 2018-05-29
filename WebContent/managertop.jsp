@@ -6,18 +6,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>管理者トップメニュー</title>
 <link rel="stylesheet" href="mtop.css" type="text/css">
-
-
-
-
 </head>
 <body>
 <div>
-	<jsp:include page="/managermenu.jsp"/>
-
-<hr>
-
-	<br><br><h3>※こちらは管理者用メニューです。</h3>
+	<jsp:include page="/managermenu.jsp"/><br><h3>※こちらは管理者用メニューです。</h3>
 </div>
 
 

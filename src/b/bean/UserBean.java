@@ -37,6 +37,17 @@ public class UserBean implements Serializable
             this.sex = sex;
       }
 
+      public UserBean(String id, String name,String number1,String address){
+          this.id = id;
+          this.name = name;
+          this.number1 =number1;
+          //this.number2 =number2;
+          //this.number3 =number3;
+          this.address = address;
+          //this.birthday2 =birthday2;
+          //this.birthday3 =birthday3;
+    }
+
       public UserBean(){
 
       }

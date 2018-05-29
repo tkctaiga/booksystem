@@ -4,16 +4,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>管理人会員メニュー</title>
+<title>会員検索</title>
 </head>
 <body>
-
 <jsp:include page="/managermenu.jsp"/>
-
-
-<br><a href="/booksystem/SearchRentalServlet?action=usersearch">■会員照会</a><br><br>
-<a href="/booksystem/SearchRentalServlet?action=pass">■会員パスワード変更</a>
-
-
+<form action="/booksystem/SearchRentalServlet?action=userend"method="post">
+<strong>会員IDを入力してください</strong><br><br><input type="text" name="userid" maxlength = "12"><br>
+<br>
+<input type="submit" value="確認">
+</form>
 </body>
 </html>
