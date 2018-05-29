@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -20,6 +21,7 @@ public class ManagerMenuServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
+		    HttpSession session = request.getSession(true);
 			String action = request.getParameter("action");
 			if(action == null || action.length() == 0 || action.equals("managertop"))
 			{
@@ -53,7 +55,12 @@ public class ManagerMenuServlet extends HttpServlet {
 			//ログアウト
 			else if(action.equals("mlogout"))
 			{
-				gotoPage(request,response,"/mlogout.jsp");
+				session = request.getSession(false);
+		    	if(session != null)
+		    	{
+		    		session.invalidate();
+		    		gotoPage(request, response,"/librarylogout.jsp");
+		    	}
 			}else{
 				gotoPage(request,response,"/error.jsp");
 			}
