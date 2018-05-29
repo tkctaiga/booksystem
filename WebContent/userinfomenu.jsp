@@ -19,5 +19,7 @@
 <br>
 <br>
 <a href="/booksystem/ChangePwServlet?action=inputpw">■会員のパスワード変更</a>
+<br>
+<a href="/booksystem/ChangePwServlet?action=inputpw">■会員の退会</a>
 </body>
 </html>
