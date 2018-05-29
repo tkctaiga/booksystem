@@ -72,7 +72,7 @@ public class NewBookServlet extends HttpServlet {
 			}
 		} catch (DAOException e) {
 			e.printStackTrace();
-			request.setAttribute("message", "前田さん、笑いが止まらない");
+			request.setAttribute("message", "内部エラーが発生しました。");
 			gotoPage(request, response, "/error.jsp");
 		}
 	}

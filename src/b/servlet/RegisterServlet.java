@@ -43,15 +43,34 @@ public class RegisterServlet extends HttpServlet {
              if(action == null || action.length() == 0
                     || action.equals("useradd")){
              gotoPage(request, response, "/newuser.jsp");
-             //useraddは確認処理を行う
              }else if(action.equals("addconfirm")){
+            	 String password = request.getParameter("password");
+            	 String name = request.getParameter("name");
+            	 String address = request.getParameter("address");
+            	 String postal1 = request.getParameter("postal1");
+            	 String postal2 = request.getParameter("postal2");
+            	 String number1 = request.getParameter("number1");
+            	 String number2 = request.getParameter("number2");
+            	 String number3 = request.getParameter("number3");
+            	 String birthday1 = request.getParameter("birthday1");
+            	 String birthday2 = request.getParameter("birthday2");
+            	 String birthday3 = request.getParameter("birthday3");
+
+            	 if(password.equals("") || name.equals("") || address.equals("") || postal1.equals("") || postal2.equals("")
+            			 || number1.equals("") || number2.equals("") || number3.equals("")
+            			 || birthday1.equals("") || birthday2.equals("") || birthday3.equals("")){
+            		 request.setAttribute("message", "項目はすべて入力してください");
+            		 gotoPage(request, response, "error.jsp");
+            	 }
+
             	// ラジオボタンのパラメータの取得
                  String addsex = request.getParameter("sex");
 
                  String selectedsex;
                  if(addsex == null){
                  	  selectedsex = "選択されていません";
-                 gotoPage(request, response, "/error.jsp");
+                 	  request.setAttribute("message", "項目はすべて入力してください");
+                 gotoPage(request, response, "error.jsp");
                  }else{
                        switch(addsex){
                        case "0":
@@ -86,7 +105,7 @@ public class RegisterServlet extends HttpServlet {
                   UserBean user = (UserBean) session.getAttribute("user");
                   if(user == null){// 顧客情報がない
                          request.setAttribute("message", "正しく入力してください");
-                         gotoPage(request, response, "/error.jsp");
+                         gotoPage(request, response, "error.jsp");
                   }
 
                   UserDAO register = new UserDAO();
@@ -98,12 +117,12 @@ public class RegisterServlet extends HttpServlet {
                   gotoPage(request, response, "/registerfinish.jsp");
              }else{ // アクションの値が不正
 	                     request.setAttribute("message", "正しく操作してください");
-	                     gotoPage(request, response, "/error.jsp");
+	                     gotoPage(request, response, "error.jsp");
              }
         }catch(DAOException e){
     	     e.printStackTrace();
     	     request.setAttribute("message", "内部エラーが発生しました");
-    	     gotoPage(request, response, "/error.jsp");
+    	     gotoPage(request, response, "error.jsp");
         }
     }
 

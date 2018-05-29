@@ -5,9 +5,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Show Your Infomation</title>
 </head>
 <body>
+<h3><font color = #FFCC00>こちらで登録しますが、よろしいでしょうか？</font></h3>
 <form action="/booksystem/RegisterServlet?action=addfinish" method="post">
 	<table border="1">
 		<tr>

@@ -4,21 +4,25 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Change your Password</title>
 </head>
 <body>
-
-<h2>パスワード変更</h2>
-
-
-
-
-<form action="/booksystem/DeleteBookServlet?action=cupc"method="post">
-
-<input type="submit" value="検索">
-
+<font size="3">図書システム<br></font><hr>
+<a href="/booksystem/mainmenuservlet?action=usermenu"><font color="#ff6666">メインメニュー</font></a>
+<a href="/booksystem/mainmenuservlet?action=usersearch">検索</a>
+<a href="/booksystem/mainmenuservlet?action=userreturn">返却</a>
+<a href="/booksystem/mainmenuservlet?action=userinformation">■会員情報</a>
+<a href="/booksystem/mainmenuservlet?action=userout">ログアウト</a>
+<br>
+<h3><center>会員情報メニュー</center></h3>
+<br>
+<form action="/booksystem/ChangePwServlet?action=pwconfirm" method="post">
+現在のパスワード:<input type = "text" name = "password" maxlength = "12">
+<br><br>
+新しいパスワード:<input type = "text" name = "npassword" maxlength = "12">
+<br><br>
+<center><input type = "submit" value = "決定"></center>
 </form>
-
 
 </body>
 </html>

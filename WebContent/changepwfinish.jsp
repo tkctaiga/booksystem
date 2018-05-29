@@ -4,12 +4,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>トップページ</title>
+<title>Password Changed</title>
 </head>
 <body>
 
-ようこそ！図書システムへ
-<hr><br>
-<center><a href="/booksystem/loginservlet?action=loginpage">ログインページ</a></center>
+<center><h2><font color="#ff6666">パスワードを変更しました<br>
+安全のためログアウトします</font></h2></center>
+<br>
+<center><a href="/booksystem/loginservlet?action=loginpage">ログインへ</a></center>
+
 </body>
 </html>

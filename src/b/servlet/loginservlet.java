@@ -44,13 +44,21 @@ public class loginservlet extends HttpServlet {
 			//ログインの処理
 			else if(action.equals("login")){
 				 try{
-			         int id = Integer.parseInt(request.getParameter("id"));
-			         String password = request.getParameter("password");
+					 String sid = request.getParameter("id");
+					 String password = request.getParameter("password");
+
+					 if(sid.equals("") || password.equals("")){
+						 request.setAttribute("message", "入力してください");
+						 gotoPage(request, response, "error.jsp");
+					 }
+			         int id = Integer.parseInt(sid);
 
 		             LoginDAO login = new LoginDAO();
 		             int result = login.welcomeLibrary(id, password);
+
+
 		             // ユーザー名とパスワードが一致したら
-			         if(result == 0){
+		             if(result == 0){
 			    	         request.setAttribute("message", "IDまたはパスワードが違います");
 			    	         gotoPage(request, response, "error.jsp");
 			         }else {
@@ -84,6 +92,9 @@ public class loginservlet extends HttpServlet {
 		        }catch(DAOException e){
 		        	 e.printStackTrace();
 		        	 request.setAttribute("message", "内部エラーが発生しました");
+		        	 gotoPage(request, response, "error.jsp");
+		        }catch(NumberFormatException n){
+		        	request.setAttribute("message", "内部エラーが発生しました");
 		        	 gotoPage(request, response, "error.jsp");
 		        }
 

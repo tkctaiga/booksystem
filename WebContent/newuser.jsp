@@ -9,30 +9,30 @@
 <body>
 <form action="/booksystem/RegisterServlet?action=addconfirm" method="post">
 
-		パスワード   <input type="text" name="password" maxlength = "12">(最大12文字)
+		パスワード:<input type="text" name="password" maxlength = "12">(最大12文字)
 		<br>
 		<br>
-		氏名   <input type="text" name="name" maxlength = "15">
+		氏名:<input type="text" name="name" maxlength = "15">
 		<br>
 		<br>
-		郵便番号   <input type="text" name="postal1" maxlength = "3">-
+		郵便番号: <input type="text" name="postal1" maxlength = "3">-
 		<input type="text" name="postal2" maxlength = "4">
 		<br>
 		<br>
-		住所   <input type="text" name="address">
+		住所:<input type="text" name="address">
 		<br>
 		<br>
-		電話番号   <input type="text" name="number1" maxlength = "3">-
+		電話番号:<input type="text" name="number1" maxlength = "3">-
 		<input type="text" name="number2" maxlength = "4">-
 		<input type="text" name="number3" maxlength = "4">
 		<br>
 		<br>
-		生年月日:   西暦<input type = "text" name = "birthday1" maxlength = "4">年
+		生年月日:西暦<input type = "text" name = "birthday1" maxlength = "4">年
 		<input type = "text" name = "birthday2" maxlength = "2">月
 		<input type = "text" name = "birthday3" maxlength = "2">日
 		<br>
 		<br>
-		性別   <input type="radio" name="sex" value="0">男
+		性別:<input type="radio" name="sex" value="0">男
 		<input type="radio" name="sex" value="1">女
 		<br>
 		<br>

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Change your Password</title>
+<title>Confirm Changed Password</title>
 </head>
 <body>
 <font size="3">図書システム<br></font><hr>
@@ -14,15 +14,12 @@
 <a href="/booksystem/mainmenuservlet?action=userinformation">会員情報</a>
 <a href="/booksystem/mainmenuservlet?action=userout">ログアウト</a>
 <br>
-<h3><center>会員情報メニュー</center></h3>
-<br>
-<form action="/booksystem/ChangePwServlet?action=pwconfirm" method="post">
-現在のパスワード:<input type = "text" name = "password" maxlength = "12">
-<br><br>
-新しいパスワード:<input type = "text" name = "npassword" maxlength = "12">
-<br><br>
-<center><input type = "submit" value = "決定"></center>
-</form>
+<form action="/booksystem/ChangePwServlet?action=chpwfinish" method="post">
 
+<center><h2>パスワードを変更しますが<br>
+よろしいでしょうか?</h2></center>
+
+<center><input type = "submit" value = "変更"></center>
+</form>
 </body>
 </html>

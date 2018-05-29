@@ -18,17 +18,17 @@
 ①ISBN番号<input type="text" name="nisbn" maxlength="10"><br><br>
 ②分類コード<select name="nbassort">
 
-    <option value="0">選択してください</option>
-	<option value="1">0 総記</option>
-	<option value="2">1 哲学</option>
-	<option value="3">2 歴史</option>
-	<option value="4">3 社会科学</option>
-	<option value="5">4 自然科学</option>
-	<option value="6">5 技術</option>
-	<option value="7">6 産業</option>
-	<option value="8">7 芸術</option>
-	<option value="9">8 言語</option>
-	<option value="10">9 文学</option>
+    <option value="10">選択してください</option>
+	<option value="0">0 総記</option>
+	<option value="1">1 哲学</option>
+	<option value="2">2 歴史</option>
+	<option value="3">3 社会科学</option>
+	<option value="4">4 自然科学</option>
+	<option value="5">5 技術</option>
+	<option value="6">6 産業</option>
+	<option value="7">7 芸術</option>
+	<option value="8">8 言語</option>
+	<option value="9">9 文学</option>
 
 </select><br><br>
 

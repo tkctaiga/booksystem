@@ -18,7 +18,7 @@
 	</table>
 <br><input type="submit" value="ログイン"><br>
 </form>
-<br>新規会員はこちら<a href="/booksystem/RegisterServlet?action=useradd">新規会員登録</a>
+<br>新規会員はこちら→<a href="/booksystem/RegisterServlet?action=useradd">新規会員登録</a>
 
 </body>
 </html>

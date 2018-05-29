@@ -8,13 +8,12 @@
 </head>
 <body>
 
-<font color="#ff6666">登録完了!</font>
+<center><h2><font color="#ff6666">登録完了!</font></h2></center>
+<br>
+<center><b>あなたのIDは${userNumber}です。</b></center>
 <br>
 <br>
-あなたのIDは${userNumber}です。
 <br>
-<br>
-<br>
-<a href="/booksystem/loginservlet?action=loginpage">ログインページへ</a>
+<center><a href="/booksystem/loginservlet?action=loginpage">ログインページへ</a></center>
 </body>
 </html>
