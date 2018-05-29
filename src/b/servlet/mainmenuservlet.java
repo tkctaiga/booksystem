@@ -75,8 +75,8 @@ public class mainmenuservlet extends HttpServlet {
 			else if(action.equals("userout"))
 			{
 				session = request.getSession(false);
-		    	if(session != null){
-
+		    	if(session != null)
+		    	{
 		    		session.invalidate();
 		    		gotoPage(request, response,"/librarylogout.jsp");
 		    	}

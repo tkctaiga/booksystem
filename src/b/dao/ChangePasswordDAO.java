@@ -1,6 +1,7 @@
 package b.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,7 +23,7 @@ public class ChangePasswordDAO{
 
 		try{
 			int result = 0;
-			String sql = "SELECT user_id from users where  user_id = ? and user_password = ?";
+			String sql = "SELECT user_id from users where user_id = ? and user_password = ? AND user_dis IS NULL";
 			st = con.prepareStatement(sql);
 			// プレースホルダーの設定
 			st.setInt(1, uid);
@@ -54,6 +55,74 @@ public class ChangePasswordDAO{
 		}
 	}
 
+	public String getPw(String uid)throws DAOException{
+		if(con == null){
+			getConnection();
+		}
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		try{
+			String result = "";
+			String sql = "SELECT user_id,user_password,user_dis FROM USERS WHERE user_id = ? AND user_dis IS NULL ORDER BY user_id";
+			st = con.prepareStatement(sql);
+			// プレースホルダーの設定
+			st.setInt(1, Integer.parseInt(uid));
+
+			rs = st.executeQuery();
+			// 結果の取得
+			if(rs.next()){
+				result = rs.getString(2);
+			}
+			rs.close();
+			st.close();
+			return result;
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new DAOException("レコードの操作に失敗しました。");
+		}finally{
+			try{
+				if(rs != null){
+					rs.close();
+				}
+				if(st != null){
+					st.close();
+				}
+				close();
+			}catch(Exception e){
+				throw new DAOException("リソースの開放に失敗しました。");
+			}
+		}
+	}
+
+	public void userDelete(int userid)throws DAOException{
+		if(con == null){
+			getConnection();
+		}
+		PreparedStatement st = null;
+
+        try{
+			String sql = "UPDATE users SET user_dis = ? WHERE user_id = ?";
+			st = con.prepareStatement(sql);
+            Date today = new Date(System.currentTimeMillis());
+			st.setDate(1,today);
+			st.setInt(2,userid);
+			st.executeUpdate();
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new DAOException("レコードの操作に失敗しました。");
+		}finally{
+			try{
+				if(st != null){
+					st.close();
+				}
+				close();
+			}catch(Exception e){
+				throw new DAOException("リソースの開放に失敗しました。");
+			}
+		}
+	}
+
 	public int ChangePass(int uid, String npw)throws DAOException{
 		if(con == null){
 			getConnection();
@@ -63,7 +132,6 @@ public class ChangePasswordDAO{
         try{
 			String sql = "UPDATE users SET user_password = ? WHERE user_id = ?";
 			st = con.prepareStatement(sql);
-
 			st.setString(1, npw);
 			st.setInt(2, uid);
 

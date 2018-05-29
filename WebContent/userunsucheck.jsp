@@ -14,13 +14,13 @@
 <a href="/booksystem/mainmenuservlet?action=userinformation">会員情報</a>
 <a href="/booksystem/mainmenuservlet?action=userout">ログアウト</a>
 <br><br><br>
-<form action="/booksystem/Userdelete" method="post">
-会員ID<input type="text" name="idtype">
+<form action="/booksystem/ChangeUserServlet?action=dconfim" method="post">
+会員ID<input type="text" name="uid">
 <br>
-パスワード<input type="text" name="passwordtype">
+パスワード<input type="text" name="upas">
 <br>
 <input type="submit" value="確認ページへ">
-<input type="hidden" name="action" value="userdelete">
+<input type="hidden" name="action" value="dconfim">
 </form>
 </body>
 </html>

@@ -14,10 +14,12 @@
 <a href="/booksystem/mainmenuservlet?action=userinformation"><font color="#ff6666">■会員情報</font></a>
 <a href="/booksystem/mainmenuservlet?action=userout">ログアウト</a>
 <br><br><br>
-会員ID${userId}<br>
-名前${userName}<br>
+会員ID${userid}<br>
+名前${username}<br>
 <h3>退会してもよろしいですか？</h3>
+<form action="/booksystem/ChangeUserServlet?action=dend" method="post">
 <input type="submit" value="退会">
-<input type="hidden" name="action" value="userdeletefinish">
+<input type="hidden" name="action" value="dend">
+</form>
 </body>
 </html>
