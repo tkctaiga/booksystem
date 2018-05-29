@@ -469,6 +469,42 @@ public class bookDao
 			}
 		}
 	}
+	public List<bookBean>favbook() throws DAOException
+	{
+		if(con == null)
+			getConnection();
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try
+		{
+			String sql = "SELECT DISTINCT bi.bookinfo_name FROM bookinfo bi,bookstate bs WHERE bi.bookinfo_isbn = bs.bookinfo_isbn AND bs.bookstate_dis IS NULL";
+
+			st = con.prepareStatement(sql);
+			rs = st.executeQuery();
+			List<bookBean>list = new ArrayList<bookBean>();
+			while(rs.next())
+			{
+				String name = rs.getString("bookinfo_name");
+				bookBean bean = new bookBean(name);
+				list.add(bean);
+			}
+		return list;
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました");
+		}finally{
+			try
+			{
+				if(rs != null)rs.close();
+				if(st != null)st.close();
+				close();
+			}catch(Exception e)
+			{
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
+	}
 
 }
 

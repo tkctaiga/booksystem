@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import b.bean.UserTopBean;
+import b.bean.bookBean;
 import b.dao.DAOException;
 import b.dao.bookDao;
 
@@ -37,6 +38,9 @@ public class mainmenuservlet extends HttpServlet {
 			//トップページ
 			else if (action.equals("usermenu"))
 			{
+				bookDao dao = new bookDao();
+				List<bookBean>list = dao.favbook();
+				request.setAttribute("fav",list.get(RandomRand(0,list.size())).getName());
 				gotoPage(request,response,"/usermenu.jsp");
 			}
 			//検索
@@ -112,6 +116,13 @@ public class mainmenuservlet extends HttpServlet {
 		//	throw new ServletException();
 		//}
 	}
+	  public static int RandomRand(int x,int y)
+	  {
+	    int Maxnum = x + 1;
+	    int Minnum = y;
+
+	    return (int)Math.floor(Math.random() * (Maxnum - Minnum)) + Minnum;
+	  }
 
 }
 

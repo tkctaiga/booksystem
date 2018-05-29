@@ -44,12 +44,23 @@ public class ChangeUserServlet extends HttpServlet
 				//比較する値
 				String eid = session.getAttribute("userid").toString();
 				String epw = "";
+				int renbook = (int)session.getAttribute("userbookscount");
 				ChangePasswordDAO dao = new ChangePasswordDAO();
 				epw = dao.getPw(eid);
-				System.out.println(id + pw + eid + epw);
+				System.out.println(renbook);
+				//IDとパスワードが一致してるか
 				if(id.equals(eid) && pw.equals(epw))
 				{
-					gotoPage(request,response,"/userunsuinfo.jsp");
+					//レンタルしている本がないか
+					if(renbook == 0)
+					{
+						gotoPage(request,response,"/userunsuinfo.jsp");
+					}
+					else
+					{
+						//違う場合のJSP
+						gotoPage(request,response,"/top.jsp");
+					}
 				}
 				else
 				{

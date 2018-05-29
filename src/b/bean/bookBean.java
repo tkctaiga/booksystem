@@ -37,6 +37,12 @@ public class bookBean implements Serializable
 	    //本の状態
 		this.book_stateid = bookstateid;
 	}
+	//借りるBean
+	public bookBean(String name)
+	{
+		//本の名前
+		this.book_name = name;
+	}
 
 	public bookBean()
 	{
