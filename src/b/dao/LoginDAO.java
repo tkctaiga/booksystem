@@ -62,6 +62,48 @@ public class LoginDAO{
 		}
 	}
 
+	public int CantEnter(int id) throws DAOException{
+   	    if(con == null){
+   		    getConnection();
+   	    }
+   	    PreparedStatement st = null;
+        ResultSet rs = null;
+        try{
+       	 int usercheck = 0;
+       	 // SQL文の作成
+       	 String sql = "SELECT * from users WHERE user_id = ? and user_dis isNULL";
+       	 // PrepareStatementオブジェクトの取得
+       	 st = con.prepareStatement(sql);
+       	 // 指定したユーザーが退会しているか確認
+       	 st.setInt(1, id);
+       	 // SQLの実行
+       	 rs = st.executeQuery();
+
+       	 // 退会していれば0が返ってくる
+       	 if(rs.next()){
+       		 usercheck = rs.getInt(1);
+       	 }
+       	 st.close();
+       	 rs.close();
+       	 return usercheck;
+        }catch(Exception e){
+			e.printStackTrace();
+			throw new DAOException("レコードの操作に失敗しました。");
+		}finally{
+			try{
+				if(rs != null){
+					rs.close();
+				}
+				if(st != null){
+					st.close();
+				}
+				close();
+			}catch(Exception e){
+				throw new DAOException("リソースの開放に失敗しました。");
+			}
+		}
+	}
+
 	public int divideUser(int id)
 	               throws DAOException{
 		getConnection();

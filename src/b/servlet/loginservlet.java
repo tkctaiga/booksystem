@@ -54,7 +54,13 @@ public class loginservlet extends HttpServlet {
 			         int id = Integer.parseInt(sid);
 
 		             LoginDAO login = new LoginDAO();
+		             int usercheck = login.CantEnter(id);
+		             if(usercheck == 0){
+		            	 request.setAttribute("message", "会員登録してください");
+		            	 gotoPage(request, response, "error.jsp");
+		             }
 		             int result = login.welcomeLibrary(id, password);
+
 
 
 		             // ユーザー名とパスワードが一致したら
