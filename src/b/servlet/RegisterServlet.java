@@ -37,6 +37,9 @@ public class RegisterServlet extends HttpServlet {
         HttpSession session = request.getSession();
 
         try{
+
+
+
              // パラメータの解析
              String action = request.getParameter("action");
              // useraddまたはパラメータなしの場合は情報入力ページを表示
@@ -44,21 +47,57 @@ public class RegisterServlet extends HttpServlet {
                     || action.equals("useradd")){
              gotoPage(request, response, "/newuser.jsp");
              }else if(action.equals("addconfirm")){
+            	 String postal1 = request.getParameter("postal1");
+            	 String postal2 = request.getParameter("postal2");
+            	 if(postal1.length() != 3 || postal2.length() != 4){
+            		 request.setAttribute("message", "郵便番号を正しく入力してください");
+            		 gotoPage(request, response, "error.jsp");
+            	 }
+
+            	 int birthday1 = Integer.parseInt(request.getParameter("birthday1"));
+            	 int birthday2 = Integer.parseInt(request.getParameter("birthday2"));
+            	 int birthday3 = Integer.parseInt(request.getParameter("birthday3"));
+            	 //if(birthday1.length() != 4 || birthday2 < 1 || birthday2 > 12){
+            	 if(birthday2 < 1 || birthday2 > 12){
+            		 request.setAttribute("message", "生年月日を正しく入力してください");
+            		 gotoPage(request, response, "error.jsp");
+
+            	 } else if(birthday2 == 4 ||birthday2 == 6 ||birthday2 == 9 ||birthday2 == 11) {
+            		 if (birthday3 < 1 || birthday3 > 30) {
+            			 request.setAttribute("message", "この日は存在しません");
+                		 gotoPage(request, response, "error.jsp");
+            		 }
+            	 } else if (birthday2 == 2) {
+            		 if (birthday1 % 4 == 0 && birthday1 %100 != 0 || birthday1 == 400) {
+            			 if (birthday3 < 1 || birthday3 > 29) {
+                			 request.setAttribute("message", "この日は存在しません");
+                    		 gotoPage(request, response, "error.jsp");
+            			 }
+            		 } else {
+            			 if (birthday3 < 1 || birthday3 > 28) {
+                			 request.setAttribute("message", "この日は存在しません");
+                    		 gotoPage(request, response, "error.jsp");
+            			 }
+            		 }
+            	 } else {
+            		 if (birthday3 < 1 || birthday3 > 31) {
+            			 request.setAttribute("message", "この日は存在しません");
+                		 gotoPage(request, response, "error.jsp");
+            		 }
+            	 }
             	 String password = request.getParameter("password");
             	 String name = request.getParameter("name");
             	 String address = request.getParameter("address");
-            	 String postal1 = request.getParameter("postal1");
-            	 String postal2 = request.getParameter("postal2");
             	 String number1 = request.getParameter("number1");
             	 String number2 = request.getParameter("number2");
             	 String number3 = request.getParameter("number3");
-            	 String birthday1 = request.getParameter("birthday1");
-            	 String birthday2 = request.getParameter("birthday2");
-            	 String birthday3 = request.getParameter("birthday3");
+            	 String year = String.valueOf("birthday1");
+            	 String month = String.valueOf("birthday3");
+            	 String day = String.valueOf("birthday3");
 
             	 if(password.equals("") || name.equals("") || address.equals("") || postal1.equals("") || postal2.equals("")
             			 || number1.equals("") || number2.equals("") || number3.equals("")
-            			 || birthday1.equals("") || birthday2.equals("") || birthday3.equals("")){
+            			 || year.equals("") || month.equals("") || day.equals("")){
             		 request.setAttribute("message", "項目はすべて入力してください");
             		 gotoPage(request, response, "error.jsp");
             	 }
@@ -110,7 +149,7 @@ public class RegisterServlet extends HttpServlet {
 
                   UserDAO register = new UserDAO();
                   int userNumber = register.saveUser(user);
-                  System.out.println(userNumber);
+                  //System.out.println(userNumber);
                   // 登録後はセッション情報をクリア
                   session.removeAttribute("user");
                   // ユーザーIDをクライアントへ送る
@@ -124,6 +163,10 @@ public class RegisterServlet extends HttpServlet {
     	     e.printStackTrace();
     	     request.setAttribute("message", "内部エラーが発生しました");
     	     gotoPage(request, response, "error.jsp");
+        } catch(Exception e) {
+     	     e.printStackTrace();
+     	     request.setAttribute("message", "正しい数値を入力してください");
+     	     gotoPage(request, response, "error.jsp");
         }
     }
 
