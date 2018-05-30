@@ -14,7 +14,7 @@
 		<td>ユーザーID:</td><td><input type="text" name="id"></td>
 		</tr>
 		<tr>
-		<td>パスワード:</td><td><input type="text" name="password"></td>
+		<td>パスワード:</td><td><input type="password" name="password"></td>
 	</table>
 <br><input type="submit" value="ログイン"><br>
 </form>

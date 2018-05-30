@@ -17,9 +17,9 @@
 <h3><center>会員情報メニュー</center></h3>
 <br>
 <form action="/booksystem/ChangePwServlet?action=pwconfirm" method="post">
-現在のパスワード:<input type = "text" name = "password" maxlength = "12">
+現在のパスワード:<input type = "password" name = "password" maxlength = "12">
 <br><br>
-新しいパスワード:<input type = "text" name = "npassword" maxlength = "12">
+新しいパスワード:<input type = "password" name = "npassword" maxlength = "12">
 <br><br>
 <center><input type = "submit" value = "決定"></center>
 </form>

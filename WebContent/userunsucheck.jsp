@@ -17,7 +17,7 @@
 <form action="/booksystem/ChangeUserServlet?action=dconfim" method="post">
 会員ID<input type="text" name="uid">
 <br>
-パスワード<input type="text" name="upas">
+パスワード<input type="password" name="upas">
 <br>
 <input type="submit" value="確認ページへ">
 <input type="hidden" name="action" value="dconfim">

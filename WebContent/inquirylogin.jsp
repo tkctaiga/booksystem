@@ -13,7 +13,7 @@
 
 <h2>会員照会</h2>
 
-パスワード<input type="text" name="managerpass" ><br><br>
+パスワード<input type="password" name="managerpass" ><br><br>
 
 <form action="/booksystem/DeleteBookServlet?action=inqmenu"method="post">
 

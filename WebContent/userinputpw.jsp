@@ -19,7 +19,7 @@
 <form action="/booksystem/ChangemenuServlet?action=pwconfirm" method="post">
 <input type="hidden" name="menu" value="userinfo">
 <input type="hidden" name="action" value="pwconfirm">
-パスワード<input type="text" name="pw">
+パスワード<input type="password" name="pw">
 <br>
 <input type="submit" value="確認">
 </form>

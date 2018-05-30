@@ -15,7 +15,6 @@
 <a href="/booksystem/mainmenuservlet?action=userout">ログアウト</a>
 <form action="/booksystem/ChangemenuServlet" method="post">
 <h3>変更完了!</h3>
-<h2>変更完了しました。</h2>
 <a href="/booksystem/mainmenuservlet?action=usermenu">メインメニューへ</a>
 </form>
 </body>
