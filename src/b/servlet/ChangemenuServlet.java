@@ -66,6 +66,7 @@ public class ChangemenuServlet extends HttpServlet {
 							&& request.getParameter("chnumber3") == "") {
 						gotoPage(request, response, "/error.jsp");
 					}
+					//Beanを初期化
 					UserBean chUserBean = new UserBean();
 					chUserBean.setName(request.getParameter("chname"));
 					chUserBean.setAddress(request.getParameter("chaddress"));
