@@ -39,28 +39,15 @@ public class NewBookServlet extends HttpServlet {
 
 			} else if (action.equals("confirm")) {
 
-				String ntitle = request.getParameter("ntitle");
-				String nbassort = request.getParameter("nbassort");
-				String npublishernum = request.getParameter("npublishernum");
-				String nauthor = request.getParameter("nauthor");
-				String npublisher = request.getParameter("npublisher");
-				String npubyear = request.getParameter("npubyear");
-				String arrivalyear = request.getParameter("arrivalyear");
-				if(ntitle.equals("") || nbassort.equals("") || npublishernum.equals("")
-						|| nauthor.equals("") || npublisher.equals("") || npubyear.equals("") || arrivalyear.equals("")){
-					request.setAttribute("message","項目を全て入力してください。");
-					gotoPage(request, response, "/error.jsp");
-				}
-
 				NewBookBean bean = new NewBookBean();
-				bean.setNisbn(ntitle);
-				bean.setNbassort(nbassort);
-				bean.setNpublishernum(npublishernum);
-				bean.setNtitle(ntitle);
-				bean.setNauthor(nauthor);
-				bean.setNpublisher(npublisher);
-				bean.setNpubyear(npubyear);
-				bean.setArrivalyear(arrivalyear);
+				bean.setNisbn(request.getParameter("nisbn"));
+				bean.setNbassort(request.getParameter("nbassort"));
+				bean.setNpublishernum(request.getParameter("npublishernum"));
+				bean.setNtitle(request.getParameter("ntitle"));
+				bean.setNauthor(request.getParameter("nauthor"));
+				bean.setNpublisher(request.getParameter("npublisher"));
+				bean.setNpubyear(request.getParameter("npubyear"));
+				bean.setArrivalyear(request.getParameter("arrivalyear"));
 				session.setAttribute("nnbook", bean);
 
 				gotoPage(request, response, "/newbookconfirm.jsp");
