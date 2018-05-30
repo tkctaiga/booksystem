@@ -7,7 +7,7 @@
 <title>貸し借り画面</title>
 </head>
 <body>
-<font size="3">図書システム<br></font><hr>
+<font size="3">新宿図書システム<br></font><hr>
 <br><h3>確定画面</h3>
 ご利用ありがとうございました。<br>
 <a href="/booksystem/mainmenuservlet?action=usermenu">メインメニューへ</a>

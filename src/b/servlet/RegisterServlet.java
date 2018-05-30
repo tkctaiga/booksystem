@@ -47,16 +47,33 @@ public class RegisterServlet extends HttpServlet {
                     || action.equals("useradd")){
              gotoPage(request, response, "/newuser.jsp");
              }else if(action.equals("addconfirm")){
+            	 String password = request.getParameter("password");
+            	 String name = request.getParameter("name");
+            	 String address = request.getParameter("address");
             	 String postal1 = request.getParameter("postal1");
             	 String postal2 = request.getParameter("postal2");
+            	 String number1 = request.getParameter("number1");
+            	 String number2 = request.getParameter("number2");
+            	 String number3 = request.getParameter("number3");
+            	 String year = String.valueOf(request.getParameter("birthday1"));
+            	 String month = String.valueOf(request.getParameter("birthday2"));
+            	 String day = String.valueOf(request.getParameter("birthday3"));
+
+            	 if(password.equals("") || name.equals("") || address.equals("") || postal1.equals("") || postal2.equals("")
+            			 || number1.equals("") || number2.equals("") || number3.equals("")
+            			 || year.equals("") || month.equals("") || day.equals("")){
+            		 request.setAttribute("message", "項目はすべて入力してください");
+            		 gotoPage(request, response, "error.jsp");
+            	 }
+
             	 if(postal1.length() != 3 || postal2.length() != 4){
             		 request.setAttribute("message", "郵便番号を正しく入力してください");
             		 gotoPage(request, response, "error.jsp");
             	 }
 
-            	 int birthday1 = Integer.parseInt(request.getParameter("birthday1"));
-            	 int birthday2 = Integer.parseInt(request.getParameter("birthday2"));
-            	 int birthday3 = Integer.parseInt(request.getParameter("birthday3"));
+            	 int birthday1 = Integer.parseInt(year);
+            	 int birthday2 = Integer.parseInt(month);
+            	 int birthday3 = Integer.parseInt(day);
             	 //if(birthday1.length() != 4 || birthday2 < 1 || birthday2 > 12){
             	 if(birthday2 < 1 || birthday2 > 12){
             		 request.setAttribute("message", "生年月日を正しく入力してください");
@@ -84,22 +101,6 @@ public class RegisterServlet extends HttpServlet {
             			 request.setAttribute("message", "この日は存在しません");
                 		 gotoPage(request, response, "error.jsp");
             		 }
-            	 }
-            	 String password = request.getParameter("password");
-            	 String name = request.getParameter("name");
-            	 String address = request.getParameter("address");
-            	 String number1 = request.getParameter("number1");
-            	 String number2 = request.getParameter("number2");
-            	 String number3 = request.getParameter("number3");
-            	 String year = String.valueOf("birthday1");
-            	 String month = String.valueOf("birthday3");
-            	 String day = String.valueOf("birthday3");
-
-            	 if(password.equals("") || name.equals("") || address.equals("") || postal1.equals("") || postal2.equals("")
-            			 || number1.equals("") || number2.equals("") || number3.equals("")
-            			 || year.equals("") || month.equals("") || day.equals("")){
-            		 request.setAttribute("message", "項目はすべて入力してください");
-            		 gotoPage(request, response, "error.jsp");
             	 }
 
             	// ラジオボタンのパラメータの取得

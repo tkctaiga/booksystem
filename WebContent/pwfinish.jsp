@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>変更確定</title>
 </head>
 <body>
 <h3>パスワードを変更しました

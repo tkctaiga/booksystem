@@ -7,7 +7,7 @@
 <title>検索</title>
 </head>
 <body>
-図書システム<hr>
+新宿図書システム<hr>
 <a href="/booksystem/mainmenuservlet?action=usermenu">メインメニュー</a>
 <a href="/booksystem/mainmenuservlet?action=usersearch"><font color="#ff6666">■検索</font></a>
 <a href="/booksystem/mainmenuservlet?action=userreturn">返却</a>

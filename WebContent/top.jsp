@@ -8,7 +8,7 @@
 </head>
 <body>
 
-ようこそ！図書システムへ
+<h2>ようこそ！新宿図書システムへ</h2>
 <hr><br>
 <center><a href="/booksystem/loginservlet?action=loginpage">ログインページ</a></center>
 </body>

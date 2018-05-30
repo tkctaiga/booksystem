@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Select Delete</title>
 </head>
 <body>
 <jsp:include page="/managermenu.jsp"/>

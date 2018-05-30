@@ -7,7 +7,7 @@
 <title>Change your Password</title>
 </head>
 <body>
-<font size="3">図書システム<br></font><hr>
+<font size="3">新宿図書システム<br></font><hr>
 <a href="/booksystem/mainmenuservlet?action=usermenu"><font color="#ff6666">メインメニュー</font></a>
 <a href="/booksystem/mainmenuservlet?action=usersearch">検索</a>
 <a href="/booksystem/mainmenuservlet?action=userreturn">返却</a>

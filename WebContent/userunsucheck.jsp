@@ -7,7 +7,7 @@
 <title>退会ページ</title>
 </head>
 <body>
-<font size="3">図書システム<br></font><hr>
+<font size="3">新宿図書システム<br></font><hr>
 <a href="/booksystem/mainmenuservlet?action=usermenu">メインメニュー</a>
 <a href="/booksystem/mainmenuservlet?action=userreturn"><font color="#ff6666">■検索</font></a>
 <a href="/booksystem/mainmenuservlet?action=usersearch">返却</a>
